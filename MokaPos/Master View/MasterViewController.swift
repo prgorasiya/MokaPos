@@ -14,7 +14,9 @@ class MasterViewController: UIViewController {
     
     fileprivate lazy var optionsView: OptionsListViewController = self.buildFromStoryboard("Main")
     fileprivate lazy var cartView: CartViewController = self.buildFromStoryboard("Main")
-    fileprivate lazy var itemsView: OptionsListViewController = self.buildFromStoryboard("Detail")
+    fileprivate lazy var itemsView: ItemListViewController = self.buildFromStoryboard("Detail")
+    fileprivate lazy var discountView: DiscountListViewController = self.buildFromStoryboard("Detail")
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,12 +86,27 @@ class MasterViewController: UIViewController {
         }
         return viewController
     }
+    
+    
+    func navigateToItemList() {
+        optionsView.navigationController?.pushViewController(itemsView, animated: true)
+    }
+    
+    
+    func navigateToDiscountList() {
+        optionsView.navigationController?.pushViewController(discountView, animated: true)
+    }
 }
 
 
 extension MasterViewController: OptionsListViewDelegate {
     func didSelectOptionAt(index: Int) {
-        
+        if index == 0 {
+            navigateToDiscountList()
+        }
+        else if index == 1 {
+            navigateToItemList()
+        }
     }
 }
 

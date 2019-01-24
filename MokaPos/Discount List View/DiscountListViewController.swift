@@ -1,5 +1,5 @@
 //
-//  DicountListViewController.swift
+//  DiscountListViewController.swift
 //  MokaPos
 //
 //  Created by paras gorasiya on 24/1/19.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class DicountListViewController: UIViewController {
+class DiscountListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
