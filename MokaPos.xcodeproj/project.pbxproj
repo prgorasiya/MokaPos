@@ -8,12 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		6A01540621F997B5008B8F1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A01540521F997B5008B8F1A /* AppDelegate.swift */; };
-		6A01540821F997B5008B8F1A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A01540721F997B5008B8F1A /* ViewController.swift */; };
+		6A01540821F997B5008B8F1A /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A01540721F997B5008B8F1A /* MasterViewController.swift */; };
 		6A01540B21F997B5008B8F1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A01540921F997B5008B8F1A /* Main.storyboard */; };
 		6A01540E21F997B5008B8F1A /* MokaPos.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6A01540C21F997B5008B8F1A /* MokaPos.xcdatamodeld */; };
 		6A01541021F997B7008B8F1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A01540F21F997B7008B8F1A /* Assets.xcassets */; };
 		6A01541321F997B7008B8F1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A01541121F997B7008B8F1A /* LaunchScreen.storyboard */; };
 		6A01541E21F997B7008B8F1A /* MokaPosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A01541D21F997B7008B8F1A /* MokaPosTests.swift */; };
+		6A01542921F99983008B8F1A /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A01542821F99983008B8F1A /* Detail.storyboard */; };
+		6A01543221F99A68008B8F1A /* OptionsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A01543121F99A68008B8F1A /* OptionsListViewController.swift */; };
+		6A01543421F99A74008B8F1A /* ItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A01543321F99A74008B8F1A /* ItemListViewController.swift */; };
+		6A01543621F99A86008B8F1A /* DicountListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A01543521F99A86008B8F1A /* DicountListViewController.swift */; };
+		6A01543821F99A91008B8F1A /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A01543721F99A91008B8F1A /* CartViewController.swift */; };
+		6A01543B21F9A08C008B8F1A /* OptionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A01543A21F9A08C008B8F1A /* OptionsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,7 +35,7 @@
 /* Begin PBXFileReference section */
 		6A01540221F997B5008B8F1A /* MokaPos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MokaPos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A01540521F997B5008B8F1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6A01540721F997B5008B8F1A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6A01540721F997B5008B8F1A /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		6A01540A21F997B5008B8F1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6A01540D21F997B5008B8F1A /* MokaPos.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MokaPos.xcdatamodel; sourceTree = "<group>"; };
 		6A01540F21F997B7008B8F1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -38,6 +44,12 @@
 		6A01541921F997B7008B8F1A /* MokaPosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MokaPosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A01541D21F997B7008B8F1A /* MokaPosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MokaPosTests.swift; sourceTree = "<group>"; };
 		6A01541F21F997B7008B8F1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6A01542821F99983008B8F1A /* Detail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
+		6A01543121F99A68008B8F1A /* OptionsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsListViewController.swift; sourceTree = "<group>"; };
+		6A01543321F99A74008B8F1A /* ItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListViewController.swift; sourceTree = "<group>"; };
+		6A01543521F99A86008B8F1A /* DicountListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DicountListViewController.swift; sourceTree = "<group>"; };
+		6A01543721F99A91008B8F1A /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
+		6A01543A21F9A08C008B8F1A /* OptionsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,10 +92,14 @@
 			isa = PBXGroup;
 			children = (
 				6A01540521F997B5008B8F1A /* AppDelegate.swift */,
-				6A01540721F997B5008B8F1A /* ViewController.swift */,
-				6A01540921F997B5008B8F1A /* Main.storyboard */,
+				6A01542A21F999DC008B8F1A /* Storyboards */,
+				6A01542B21F999F9008B8F1A /* Master View */,
+				6A01542C21F99A02008B8F1A /* Options List View */,
+				6A01542D21F99A21008B8F1A /* Item List View */,
+				6A01542E21F99A31008B8F1A /* Discount List View */,
+				6A01543021F99A42008B8F1A /* Cart view */,
+				6A01543921F9A036008B8F1A /* Models */,
 				6A01540F21F997B7008B8F1A /* Assets.xcassets */,
-				6A01541121F997B7008B8F1A /* LaunchScreen.storyboard */,
 				6A01541421F997B7008B8F1A /* Info.plist */,
 				6A01540C21F997B5008B8F1A /* MokaPos.xcdatamodeld */,
 			);
@@ -97,6 +113,64 @@
 				6A01541F21F997B7008B8F1A /* Info.plist */,
 			);
 			path = MokaPosTests;
+			sourceTree = "<group>";
+		};
+		6A01542A21F999DC008B8F1A /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				6A01540921F997B5008B8F1A /* Main.storyboard */,
+				6A01542821F99983008B8F1A /* Detail.storyboard */,
+				6A01541121F997B7008B8F1A /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		6A01542B21F999F9008B8F1A /* Master View */ = {
+			isa = PBXGroup;
+			children = (
+				6A01540721F997B5008B8F1A /* MasterViewController.swift */,
+			);
+			path = "Master View";
+			sourceTree = "<group>";
+		};
+		6A01542C21F99A02008B8F1A /* Options List View */ = {
+			isa = PBXGroup;
+			children = (
+				6A01543121F99A68008B8F1A /* OptionsListViewController.swift */,
+			);
+			path = "Options List View";
+			sourceTree = "<group>";
+		};
+		6A01542D21F99A21008B8F1A /* Item List View */ = {
+			isa = PBXGroup;
+			children = (
+				6A01543321F99A74008B8F1A /* ItemListViewController.swift */,
+			);
+			path = "Item List View";
+			sourceTree = "<group>";
+		};
+		6A01542E21F99A31008B8F1A /* Discount List View */ = {
+			isa = PBXGroup;
+			children = (
+				6A01543521F99A86008B8F1A /* DicountListViewController.swift */,
+			);
+			path = "Discount List View";
+			sourceTree = "<group>";
+		};
+		6A01543021F99A42008B8F1A /* Cart view */ = {
+			isa = PBXGroup;
+			children = (
+				6A01543721F99A91008B8F1A /* CartViewController.swift */,
+			);
+			path = "Cart view";
+			sourceTree = "<group>";
+		};
+		6A01543921F9A036008B8F1A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6A01543A21F9A08C008B8F1A /* OptionsModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,6 +257,7 @@
 				6A01541321F997B7008B8F1A /* LaunchScreen.storyboard in Resources */,
 				6A01541021F997B7008B8F1A /* Assets.xcassets in Resources */,
 				6A01540B21F997B5008B8F1A /* Main.storyboard in Resources */,
+				6A01542921F99983008B8F1A /* Detail.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +276,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A01540E21F997B5008B8F1A /* MokaPos.xcdatamodeld in Sources */,
-				6A01540821F997B5008B8F1A /* ViewController.swift in Sources */,
+				6A01543621F99A86008B8F1A /* DicountListViewController.swift in Sources */,
+				6A01543B21F9A08C008B8F1A /* OptionsModel.swift in Sources */,
+				6A01543821F99A91008B8F1A /* CartViewController.swift in Sources */,
+				6A01543421F99A74008B8F1A /* ItemListViewController.swift in Sources */,
+				6A01543221F99A68008B8F1A /* OptionsListViewController.swift in Sources */,
+				6A01540821F997B5008B8F1A /* MasterViewController.swift in Sources */,
 				6A01540621F997B5008B8F1A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,17 +444,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5E6U3TCPM8;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MokaPos/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.paras.MokaPos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -382,17 +464,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5E6U3TCPM8;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MokaPos/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.paras.MokaPos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
