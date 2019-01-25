@@ -32,12 +32,12 @@ class ApiManager: NSObject {
                     completion(nil)
                     return
                 }
-                
+
                 guard let responseData = data else {
                     completion(nil)
                     return
                 }
-                
+
                 // parsing the result as JSON
                 do {
                     guard let json = try JSONSerialization.jsonObject(with: responseData, options: []) as? [[String: Any]] else {

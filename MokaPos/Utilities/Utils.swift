@@ -17,7 +17,7 @@ struct MyDelegate {
 
 struct MyAPI {
     static let kBaseUrl: String = "https://jsonplaceholder.typicode.com"
-    static let kService_Get_Items: String = "photos?_page=%d&_limit=%d"
+    static let kService_Get_Items: String = "photos?_limit=20"
 }
 
 
@@ -80,5 +80,20 @@ extension UIImage {
         guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
         UIGraphicsEndImageContext()
         return image
+    }
+}
+
+
+extension UIActivityIndicatorView {
+    convenience init(activityIndicatorStyle: UIActivityIndicatorView.Style, color: UIColor, placeInTheCenterOf parentView: UIView) {
+        self.init(style: activityIndicatorStyle)
+        center = parentView.center
+        self.color = color
+        parentView.addSubview(self)
+    }
+    
+    
+    func hide() {
+        self.removeFromSuperview()
     }
 }

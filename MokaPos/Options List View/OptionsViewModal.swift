@@ -15,6 +15,12 @@ protocol OptionsViewModalDelegate: class {
 
 class OptionsViewModal: NSObject {
     
+    static let discountTitle: String = "All Discounts"
+    static let listTitle: String = "All Items"
+    
+    static let discountImageName: String = "discount"
+    static let listImageName: String = "list"
+    
     var options: [OptionsModel] = []
     weak var delegate: OptionsViewModalDelegate?
     
@@ -25,8 +31,8 @@ class OptionsViewModal: NSObject {
     
     
     func createOptionsModel() {
-        let option1 = OptionsModel(title: "All Discounts", imageName: "1")
-        let option2 = OptionsModel(title: "All Items", imageName: "2")
+        let option1 = OptionsModel(title: OptionsViewModal.discountTitle, imageName: OptionsViewModal.discountImageName)
+        let option2 = OptionsModel(title: OptionsViewModal.listTitle, imageName: OptionsViewModal.listImageName)
         options.append(option1)
         options.append(option2)
         self.delegate?.setOptions(data: options)

@@ -7,29 +7,61 @@
 //
 
 import Foundation
+import CoreData
 
 
 protocol ItemListViewModalDelegate: class {
-    func setOptions(data: [OptionsModel])
+    func startLoading()
+    func finishLoading()
+    func setItems(data: [Item])
+    func setEmptyItems()
 }
 
 
 class ItemListViewModal: NSObject {
     
-    var options: [OptionsModel] = []
-    weak var delegate: OptionsViewModalDelegate?
+    fileprivate let service: ItemListService
+    weak var delegate: ItemListViewModalDelegate?
+    let managedObjectContext = MyDelegate.appDelegate.persistentContainer.viewContext
     
-    
-    init(delegate: OptionsViewModalDelegate){
+    init(service: ItemListService, delegate: ItemListViewModalDelegate){
+        self.service = service
         self.delegate = delegate
     }
     
     
-    func createOptionsModel() {
-        let option1 = OptionsModel(title: "All Discounts", imageName: "1")
-        let option2 = OptionsModel(title: "All Items", imageName: "2")
-        options.append(option1)
-        options.append(option2)
-        self.delegate?.setOptions(data: options)
+    func fetchAllItems() {
+        self.delegate?.startLoading()
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
+        let results = Item.fetchFromManagedObjectContext(moc: managedObjectContext, request: fetchRequest)
+        if results != nil {
+            self.delegate?.finishLoading()
+            self.delegate?.setItems(data: results!)
+        }
+        else{
+            self.service.getItemsData { (response) in
+                if let data = response {
+                    if self.saveInCoreDataWith(array: data) {
+                        self.fetchAllItems()
+                    }
+                }
+                else{
+                    self.delegate?.finishLoading()
+                    self.delegate?.setEmptyItems()
+                }
+            }
+        }
+    }
+    
+    
+    private func saveInCoreDataWith(array: [[String: Any]]) -> Bool {
+        _ = array.map{Item.createInManagedObjectContext(moc: managedObjectContext, json: $0)}
+        do {
+            try managedObjectContext.save()
+            return true
+        } catch let error {
+            print(error)
+            return false
+        }
     }
 }
