@@ -26,10 +26,10 @@ class DiscountListViewModal: NSObject {
     
     
     func createDiscountModels() {
-        let discountA = DiscountModel(title: "Discount A", value: 10)
-        let discountB = DiscountModel(title: "Discount B", value: 35.5)
-        let discountC = DiscountModel(title: "Discount C", value: 50)
-        let discountD = DiscountModel(title: "Discount D", value: 100)
+        let discountA = DiscountModel(id: 1, title: "Discount A", value: 10)
+        let discountB = DiscountModel(id: 2, title: "Discount B", value: 35.5)
+        let discountC = DiscountModel(id: 3, title: "Discount C", value: 50)
+        let discountD = DiscountModel(id: 4, title: "Discount D", value: 100)
         
         discounts.append(discountA)
         discounts.append(discountB)

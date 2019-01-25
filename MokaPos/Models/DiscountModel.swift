@@ -9,6 +9,7 @@
 import Foundation
 
 struct DiscountModel {
+    let id: Int!
     let title: String!
     let value: Double!
 }

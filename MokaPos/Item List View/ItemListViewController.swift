@@ -9,12 +9,17 @@
 import Foundation
 import UIKit
 
+protocol ItemListViewDelegate: class {
+    func didSelectItemWith(productId: Int, quantity: Int, discountId: Int)
+}
+
+
 class ItemListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView?
     
-    
+    weak var delegate: ItemListViewDelegate?
     static let cellId: String = "ItemTableViewCell"
     var items: [Item]?
     var viewModal: ItemListViewModal?
@@ -74,6 +79,7 @@ extension ItemListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
+        let selected = self.items![indexPath.row]
+        self.delegate?.didSelectItemWith(productId: Int(selected.id), quantity: 1, discountId: 0)
     }
 }

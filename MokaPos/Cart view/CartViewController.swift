@@ -29,7 +29,6 @@ class CartViewController: UIViewController {
         self.tableView.tableFooterView = UIView()
         self.viewModal = CartViewModal(delegate: self)
         self.viewModal?.fetchCartItems()
-//        self.viewModal?.createCartItems()
     }
     
     
