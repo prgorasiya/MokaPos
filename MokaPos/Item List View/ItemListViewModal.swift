@@ -32,24 +32,48 @@ class ItemListViewModal: NSObject {
     
     func fetchAllItems() {
         self.delegate?.startLoading()
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
-        let results = Item.fetchFromManagedObjectContext(moc: managedObjectContext, request: fetchRequest)
-        if results != nil {
-            self.delegate?.finishLoading()
-            self.delegate?.setItems(data: results!)
-        }
-        else{
-            self.service.getItemsData { (response) in
-                if let data = response {
-                    if self.saveInCoreDataWith(array: data) {
-                        self.fetchAllItems()
-                    }
+        self.processItemsFrom(list: self.fetchItemsFromDatabase())
+        self.fetchItemsFromAPI()
+    }
+    
+    
+    func fetchItemsFromAPI() {
+        self.service.getItemsData { (response) in
+            if let data = response {
+                if self.saveInCoreDataWith(array: data) {
+                    self.processItemsFrom(list: self.fetchItemsFromDatabase())
                 }
                 else{
                     self.delegate?.finishLoading()
                     self.delegate?.setEmptyItems()
                 }
             }
+            else{
+                self.delegate?.finishLoading()
+                self.delegate?.setEmptyItems()
+            }
+        }
+    }
+    
+    
+    func fetchItemsFromDatabase() -> [Item]? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
+        let results = Item.fetchFromManagedObjectContext(moc: managedObjectContext, request: fetchRequest)
+        if results != nil {
+            return results
+        }
+        return nil
+    }
+    
+    
+    func processItemsFrom(list: [Item]?) {
+        if list != nil {
+            self.delegate?.finishLoading()
+            self.delegate?.setItems(data: list!)
+        }
+        else{
+            self.delegate?.finishLoading()
+            self.delegate?.setEmptyItems()
         }
     }
     

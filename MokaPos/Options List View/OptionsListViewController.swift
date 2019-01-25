@@ -26,6 +26,7 @@ class OptionsListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Library"
         self.tableView.tableFooterView = UIView()
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: OptionsListViewController.cellId)
         self.viewModal = OptionsViewModal(delegate: self)

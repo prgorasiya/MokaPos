@@ -22,23 +22,24 @@ class MasterViewController: UIViewController {
         super.viewDidLoad()
         setupStackView()
         
+        optionsView.delegate = self
+        
         let nav = UINavigationController(rootViewController: optionsView)
         nav.view.frame = optionsView.view.frame
-        optionsView.title = "Library"
         addContentController(nav, to: topStackView)
-        addContentController(cartView, to: topStackView)
-        optionsView.delegate = self
+        
+        let navCart = UINavigationController(rootViewController: cartView)
+        navCart.view.frame = cartView.view.frame
+        addContentController(navCart, to: topStackView)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        
         super.viewWillTransition(to: size, with: coordinator)
         topStackView.axis = axisForSize(size)
     }
     
     
     private func addContentController(_ child: UIViewController, to stackView: UIStackView) {
-        
         addChild(child)
         stackView.addArrangedSubview(child.view)
         child.didMove(toParent: self)
@@ -59,7 +60,7 @@ class MasterViewController: UIViewController {
         topStackView.axis = axisForSize(view.bounds.size)
         topStackView.alignment = .fill
         topStackView.distribution = .fillEqually
-        topStackView.spacing = 8.0
+        topStackView.spacing = 0.0
         
         topStackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(topStackView)
@@ -68,7 +69,7 @@ class MasterViewController: UIViewController {
         NSLayoutConstraint.activate([
             topStackView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
             topStackView.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
-            topStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8.0), view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: topStackView.bottomAnchor, constant: 8.0)
+            topStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0.0), view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: topStackView.bottomAnchor, constant: 0.0)
             ])
     }
     

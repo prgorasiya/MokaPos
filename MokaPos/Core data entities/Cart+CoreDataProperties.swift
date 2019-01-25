@@ -21,6 +21,7 @@ extension Cart {
     @NSManaged public var price: Double
     @NSManaged public var quantity: Int64
     @NSManaged public var discountId: Int64
+    @NSManaged public var discountValue: Double
     @NSManaged public var productName: String?
 
 }

@@ -68,11 +68,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No items in cart!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d88-Nb-eLc">
+                                <rect key="frame" x="428.5" y="351" width="167.5" height="26.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PKf-Qr-jwX">
-                                <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                                <rect key="frame" x="0.0" y="20" width="1024" height="633"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CartCellIdentifier" rowHeight="55" id="emS-Dl-GE8">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CartTableViewCell" rowHeight="55" id="emS-Dl-GE8" customClass="CartTableViewCell" customModule="MokaPos" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="1024" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="emS-Dl-GE8" id="Kne-zj-3nv">
@@ -109,6 +115,11 @@
                                                 <constraint firstItem="rsS-PP-x31" firstAttribute="leading" relation="lessThanOrEqual" secondItem="T0I-co-S31" secondAttribute="trailing" constant="434" id="zRP-Ek-kJR"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="price" destination="6RP-bP-bxj" id="7Sj-au-CqU"/>
+                                            <outlet property="quantity" destination="rsS-PP-x31" id="VJY-1D-4rE"/>
+                                            <outlet property="title" destination="T0I-co-S31" id="U69-9a-FJD"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -116,17 +127,54 @@
                                     <outlet property="delegate" destination="8Ba-VQ-0dm" id="w3q-6V-uQs"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9I-Oz-6o6">
+                                <rect key="frame" x="5" y="653" width="1014" height="50"/>
+                                <color key="backgroundColor" red="1" green="0.43957103934828401" blue="0.26434216587832982" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="F9X-mm-b5V"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="Clear Sale">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="clearCartTapped:" destination="8Ba-VQ-0dm" eventType="touchUpInside" id="0xj-Ru-KmI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qnn-Xh-Vhk">
+                                <rect key="frame" x="5" y="708" width="1014" height="55"/>
+                                <color key="backgroundColor" red="0.46709351876642435" green="0.71751862764358521" blue="0.45858378256052906" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="bat-i1-nLY"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <state key="normal" title="Charge">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="mgA-L7-58j" firstAttribute="bottom" secondItem="PKf-Qr-jwX" secondAttribute="bottom" id="atH-av-caX"/>
+                            <constraint firstItem="m9I-Oz-6o6" firstAttribute="leading" secondItem="mgA-L7-58j" secondAttribute="leading" constant="5" id="2aL-Y8-DKd"/>
+                            <constraint firstItem="mgA-L7-58j" firstAttribute="bottom" secondItem="PKf-Qr-jwX" secondAttribute="bottom" constant="115" id="9XM-Wa-MoZ"/>
+                            <constraint firstItem="mgA-L7-58j" firstAttribute="trailing" secondItem="m9I-Oz-6o6" secondAttribute="trailing" constant="5" id="Hcq-yg-mYY"/>
+                            <constraint firstItem="Qnn-Xh-Vhk" firstAttribute="top" secondItem="m9I-Oz-6o6" secondAttribute="bottom" constant="5" id="KEa-py-7xQ"/>
+                            <constraint firstItem="d88-Nb-eLc" firstAttribute="centerY" secondItem="mgA-L7-58j" secondAttribute="centerY" constant="-30" id="KJk-64-bbE"/>
+                            <constraint firstItem="mgA-L7-58j" firstAttribute="bottom" secondItem="Qnn-Xh-Vhk" secondAttribute="bottom" constant="5" id="P06-ga-lT6"/>
+                            <constraint firstItem="Qnn-Xh-Vhk" firstAttribute="leading" secondItem="mgA-L7-58j" secondAttribute="leading" constant="5" id="Pwi-K8-sss"/>
+                            <constraint firstItem="d88-Nb-eLc" firstAttribute="centerX" secondItem="mgA-L7-58j" secondAttribute="centerX" id="S3V-Qg-zOQ"/>
                             <constraint firstItem="PKf-Qr-jwX" firstAttribute="leading" secondItem="mgA-L7-58j" secondAttribute="leading" id="bx1-kC-56I"/>
+                            <constraint firstItem="mgA-L7-58j" firstAttribute="trailing" secondItem="Qnn-Xh-Vhk" secondAttribute="trailing" constant="5" id="ne3-rC-LdO"/>
                             <constraint firstItem="mgA-L7-58j" firstAttribute="trailing" secondItem="PKf-Qr-jwX" secondAttribute="trailing" id="rQ5-sK-N5r"/>
                             <constraint firstItem="PKf-Qr-jwX" firstAttribute="top" secondItem="mgA-L7-58j" secondAttribute="top" id="x9o-VV-RUn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mgA-L7-58j"/>
                     </view>
                     <connections>
+                        <outlet property="chargeButton" destination="Qnn-Xh-Vhk" id="KLS-EE-dgU"/>
+                        <outlet property="clearButton" destination="m9I-Oz-6o6" id="gB9-jM-8rY"/>
+                        <outlet property="emptyCartLabel" destination="d88-Nb-eLc" id="4u8-2Q-own"/>
+                        <outlet property="tableBottomConstraint" destination="9XM-Wa-MoZ" id="e9k-kD-JMi"/>
                         <outlet property="tableView" destination="PKf-Qr-jwX" id="w2O-gx-kfW"/>
                     </connections>
                 </viewController>

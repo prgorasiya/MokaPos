@@ -12,9 +12,10 @@ import UIKit
 class ItemListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView?
+    
     
     static let cellId: String = "ItemTableViewCell"
-    var activityIndicator: UIActivityIndicatorView?
     var items: [Item]?
     var viewModal: ItemListViewModal?
     var service: ItemListService = ItemListService()
@@ -33,12 +34,11 @@ class ItemListViewController: UIViewController {
 
 extension ItemListViewController: ItemListViewModalDelegate {
     func startLoading() {
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge, color: .gray,  placeInTheCenterOf: self.view)
         activityIndicator!.startAnimating()
     }
     
     func finishLoading() {
-        activityIndicator!.hide()
+        activityIndicator!.stopAnimating()
     }
     
     func setItems(data: [Item]) {
@@ -68,7 +68,7 @@ extension ItemListViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return 90
     }
     
     

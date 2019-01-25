@@ -12,6 +12,10 @@ import UIKit
 class CartViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var emptyCartLabel: UILabel!
+    @IBOutlet weak var clearButton: UIButton!
+    @IBOutlet weak var chargeButton: UIButton!
+    @IBOutlet weak var tableBottomConstraint: NSLayoutConstraint!
     
     static let cellId: String = "CartTableViewCell"
     weak var delegate: OptionsListViewDelegate?
@@ -21,30 +25,38 @@ class CartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Shopping Cart"
         self.tableView.tableFooterView = UIView()
         self.viewModal = CartViewModal(delegate: self)
+        self.viewModal?.fetchCartItems()
+//        self.viewModal?.createCartItems()
+    }
+    
+    
+    @IBAction func clearCartTapped(_ sender: Any) {
+        self.viewModal?.emptyCart()
     }
 }
 
 
 extension CartViewController: CartViewModalDelegate {
     func setCartItems(data: [Cart]) {
+        self.tableView.isHidden = false
+        self.emptyCartLabel.isHidden = true
+        self.clearButton.isHidden = false
+        self.chargeButton.isHidden = false
         self.cartItems = data
-        
-        let cart1 = Cart()
-        cart1.productName = "Subtotal"
-        cart1.price = 1000
-        
-        let cart2 = Cart()
-        cart2.productName = "Discount"
-        cart2.price = 100
-        
-        self.cartItems?.append(cart1)
-        self.cartItems?.append(cart2)
+        self.tableBottomConstraint.constant = 115
+        self.tableView.reloadData()
     }
     
     func setEmptyCart() {
-        
+        self.cartItems?.removeAll()
+        self.tableView.isHidden = true
+        self.emptyCartLabel.isHidden = false
+        self.clearButton.isHidden = true
+        self.chargeButton.isHidden = true
+        self.tableBottomConstraint.constant = 0
     }
 }
 

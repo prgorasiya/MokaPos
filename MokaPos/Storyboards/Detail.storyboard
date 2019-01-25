@@ -30,14 +30,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="d6x-hF-GLy">
-                                                    <rect key="frame" x="15" y="19.5" width="30" height="30"/>
+                                                    <rect key="frame" x="15" y="9.5" width="50" height="50"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="2ZO-zR-d3s"/>
-                                                        <constraint firstAttribute="width" constant="30" id="nLO-Yz-HyA"/>
+                                                        <constraint firstAttribute="height" constant="50" id="2ZO-zR-d3s"/>
+                                                        <constraint firstAttribute="width" constant="50" id="nLO-Yz-HyA"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GON-gQ-F2W">
-                                                    <rect key="frame" x="55" y="24" width="859" height="20.5"/>
+                                                    <rect key="frame" x="75" y="24" width="839" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -74,17 +74,24 @@
                                     <outlet property="delegate" destination="ITm-r2-ZuA" id="Zs2-Fy-ZbE"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="0uE-cg-8Dy">
+                                <rect key="frame" x="493.5" y="375.5" width="37" height="37"/>
+                                <color key="color" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="0uE-cg-8Dy" firstAttribute="centerX" secondItem="D8E-JL-Bdp" secondAttribute="centerX" id="CWE-e7-A6S"/>
                             <constraint firstItem="mQ2-PD-KRM" firstAttribute="leading" secondItem="D8E-JL-Bdp" secondAttribute="leading" id="Ml3-RO-J6F"/>
                             <constraint firstItem="D8E-JL-Bdp" firstAttribute="trailing" secondItem="mQ2-PD-KRM" secondAttribute="trailing" id="YPd-5v-SCz"/>
                             <constraint firstItem="D8E-JL-Bdp" firstAttribute="bottom" secondItem="mQ2-PD-KRM" secondAttribute="bottom" id="bmD-dI-qDk"/>
+                            <constraint firstItem="0uE-cg-8Dy" firstAttribute="centerY" secondItem="D8E-JL-Bdp" secondAttribute="centerY" id="nDy-Z1-ddm"/>
                             <constraint firstItem="mQ2-PD-KRM" firstAttribute="top" secondItem="D8E-JL-Bdp" secondAttribute="top" id="zbV-jn-BS4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="D8E-JL-Bdp"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="0uE-cg-8Dy" id="gxA-mT-WYS"/>
                         <outlet property="tableView" destination="mQ2-PD-KRM" id="pZ1-Fk-nbd"/>
                     </connections>
                 </viewController>
