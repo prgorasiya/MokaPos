@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class MasterViewController: UIViewController {
     
     private let topStackView = UIStackView()
@@ -90,12 +91,23 @@ class MasterViewController: UIViewController {
     
     
     func navigateToItemList() {
+        itemsView.delegate = self
         optionsView.navigationController?.pushViewController(itemsView, animated: true)
     }
     
     
     func navigateToDiscountList() {
         optionsView.navigationController?.pushViewController(discountView, animated: true)
+    }
+    
+    
+    func showAddEditItemPopup(productId: Int, quantity: Int, discountId: Int) {
+        let popupView: AddEditItemPopupView = self.buildFromStoryboard("Detail")
+        popupView.productId = productId
+        popupView.quantity = quantity
+        popupView.discountId = discountId
+        popupView.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        self.navigationController?.present(popupView, animated: true)
     }
 }
 
@@ -108,6 +120,13 @@ extension MasterViewController: OptionsListViewDelegate {
         else if index == 1 {
             navigateToItemList()
         }
+    }
+}
+
+
+extension MasterViewController: ItemListViewDelegate {
+    func didSelectItemWith(productId: Int, quantity: Int, discountId: Int) {
+        self.showAddEditItemPopup(productId: productId, quantity: quantity, discountId: discountId)
     }
 }
 
