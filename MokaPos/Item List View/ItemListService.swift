@@ -7,3 +7,19 @@
 //
 
 import Foundation
+
+class ItemListService {
+    
+    func getItemsData( _ callBack:@escaping ([[String: Any]]?) -> Void){
+        let url = MyAPI.kService_Get_Items
+        ApiManager.sharedInstance.getData(url) { (response) in
+            DispatchQueue.main.async {
+                guard let data = response else {
+                    callBack(nil)
+                    return
+                }
+                callBack(data)
+            }
+        }
+    }
+}
