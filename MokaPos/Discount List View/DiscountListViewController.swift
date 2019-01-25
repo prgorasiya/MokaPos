@@ -24,7 +24,7 @@ class DiscountListViewController: UIViewController {
         self.tableView.tableFooterView = UIView()
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: DiscountListViewController.cellId)
         self.viewModal = DiscountListViewModal(delegate: self)
-        self.viewModal?.createDiscountModels()
+        self.viewModal?.getDiscountList()
     }
 }
 

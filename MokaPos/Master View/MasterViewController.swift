@@ -103,11 +103,15 @@ class MasterViewController: UIViewController {
     
     func showAddEditItemPopup(productId: Int, quantity: Int, discountId: Int) {
         let popupView: AddEditItemPopupView = self.buildFromStoryboard("Detail")
+        popupView.delegate = cartView
         popupView.productId = productId
         popupView.quantity = quantity
         popupView.discountId = discountId
-        popupView.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        self.navigationController?.present(popupView, animated: true)
+        
+        self.addChild(popupView)
+        popupView.view.frame = self.view.frame
+        self.view.addSubview(popupView.view)
+        popupView.didMove(toParent: self)
     }
 }
 

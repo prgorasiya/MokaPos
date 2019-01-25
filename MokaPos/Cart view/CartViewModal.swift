@@ -26,7 +26,7 @@ class CartViewModal: NSObject {
     }
     
     
-    func createCartItem(dict: [String: Any]) {
+    func addNewCartItem(dict: [String: Any]) {
         Cart.createInManagedObjectContext(moc: managedObjectContext, dict: dict)
         self.fetchCartItems()
     }
@@ -51,6 +51,46 @@ class CartViewModal: NSObject {
         }
         else{
             return nil
+        }
+    }
+    
+    
+    private func fetchItemWith(productId: Int) -> Item? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
+        fetchRequest.predicate = NSPredicate(format: "productId == %d", productId) //Fetching item from productId
+        let results = Item.fetchFromManagedObjectContext(moc: managedObjectContext, request: fetchRequest)
+        if results != nil {
+            return results![0]
+        }
+        else{
+            return nil
+        }
+    }
+    
+    
+    func updateCartItemWith(productId: Int, quantity: Int, discountId: Int) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Cart")
+        fetchRequest.predicate = NSPredicate(format: "productId == %d AND discountId == %d", productId, discountId) // To fetch core data entity object from productId and discountId
+        if let items = Cart.fetchFromManagedObjectContext(moc: managedObjectContext, request: fetchRequest) {
+            let itemToUpdate = items[0]
+            itemToUpdate.quantity = Int64(quantity)
+            itemToUpdate.discountId = Int64(discountId)
+            do {
+                try managedObjectContext.save()
+                self.calculateSubtotalAndDiscount()
+            }
+            catch {
+                print("Could not save. \(error)")
+            }
+        }
+        else {
+            if let item = self.fetchItemWith(productId: productId) {
+                let allDiscounts: [DiscountModel] = UserDefaults.standard.retrieve(object: [DiscountModel].self, fromKey: StaticKeys.allDiscounts)!
+                let discount = allDiscounts.filter(){ $0.id == discountId }[0]
+                let itemDict: [String: Any] = ["productId": productId, "price": item.price, "quantity": quantity, "discountId": discountId, "discountValue": discount.value, "productName": item.title!]
+                self.calculateSubtotalAndDiscount()
+                self.addNewCartItem(dict: itemDict)
+            }
         }
     }
     

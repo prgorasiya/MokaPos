@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol AddEditPopupDelegate: class {
-    func itemDetailsSaved(productId: Int, quantity: Int, discountId: Int)
+    func itemUpdatedWith(productId: Int, quantity: Int, discountId: Int)
 }
 
 class AddEditItemPopupView: UIViewController {
@@ -30,6 +30,8 @@ class AddEditItemPopupView: UIViewController {
     var updatedQuantity: Int = 0 {
         didSet {
             self.quantityLabel.text = String(updatedQuantity)
+            let total = (item?.price)! * Double(updatedQuantity)
+            self.updateTotalPrice(value: total)
         }
     }
     
@@ -50,6 +52,10 @@ class AddEditItemPopupView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //using "updatedDiscountId" to keep track of discount change for existing cart item
+        self.updatedDiscountId = self.discountId
+        
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         self.viewModal = AddEditPopupViewModal(delegate: self)
         self.viewModal?.fetchItemFromDatabase(productId: productId)
@@ -58,17 +64,12 @@ class AddEditItemPopupView: UIViewController {
     
     //MARK: UI update methods
     func updateUIFromCurrentItem() {
-        self.updateQuantity(value: quantity)
         self.updateName(value: (item?.title)!)
         self.updatePrice(value: (item?.price)!)
+        self.updateQuantity(value: quantity)
         
         let total = (item?.price)! * Double(quantity)
         self.updateTotalPrice(value: total)
-    }
-    
-    
-    func updateQuantity(value: Int) {
-        self.quantityLabel.text = String(value)
     }
     
     
@@ -78,12 +79,17 @@ class AddEditItemPopupView: UIViewController {
     
     
     func updatePrice(value: Double) {
-        self.priceLabel.text = String(format: "$%f", value)
+        self.priceLabel.text = String(format: "$%.1f", value)
+    }
+    
+    
+    func updateQuantity(value: Int) {
+        self.quantityLabel.text = String(value)
     }
     
     
     func updateTotalPrice(value: Double) {
-        self.totalPriceLabel.text = String(format: "$%f", value)
+        self.totalPriceLabel.text = String(format: "$%.1f", value)
     }
     
     
@@ -99,7 +105,7 @@ class AddEditItemPopupView: UIViewController {
     
     
     @IBAction func saveButtonTapped(_ sender: Any) {
-        self.delegate?.itemDetailsSaved(productId: productId, quantity: updatedQuantity, discountId: updatedDiscountId)
+        self.delegate?.itemUpdatedWith(productId: productId, quantity: updatedQuantity, discountId: updatedDiscountId!)
     }
     
     
@@ -132,6 +138,7 @@ extension AddEditItemPopupView: AddEditPopupModalDelegate {
         self.item = data
         self.updateUIFromCurrentItem()
         self.showAnimated()
+        self.discountCollectionView.reloadData()
     }
 }
 

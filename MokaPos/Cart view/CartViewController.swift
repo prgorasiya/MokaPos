@@ -79,3 +79,10 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
 
     }
 }
+
+
+extension CartViewController: AddEditPopupDelegate {
+    func itemUpdatedWith(productId: Int, quantity: Int, discountId: Int) {
+        
+    }
+}

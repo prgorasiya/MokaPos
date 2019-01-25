@@ -247,6 +247,10 @@
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
+                                        <connections>
+                                            <outlet property="dataSource" destination="dfU-qj-Vvz" id="Zqz-8B-ygB"/>
+                                            <outlet property="delegate" destination="dfU-qj-Vvz" id="x34-Vq-lah"/>
+                                        </connections>
                                     </collectionView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
