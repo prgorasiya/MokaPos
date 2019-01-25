@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct DiscountModel {
+struct DiscountModel: Codable {
     let id: Int!
     let title: String!
     let value: Double!

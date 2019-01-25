@@ -35,6 +35,9 @@ class DiscountListViewModal: NSObject {
         discounts.append(discountB)
         discounts.append(discountC)
         discounts.append(discountD)
+        
+        //To save the Discounts to userdefaults
+        UserDefaults.standard.save(customObject: discounts, inKey: StaticKeys.allDiscounts)
         self.delegate?.setDiscounts(data: discounts)
     }
 }

@@ -133,10 +133,10 @@
             </objects>
             <point key="canvasLocation" x="50" y="-384"/>
         </scene>
-        <!--View Controller-->
+        <!--Add Edit Item Popup View-->
         <scene sceneID="dLM-vM-eyU">
             <objects>
-                <viewController id="dfU-qj-Vvz" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddEditItemPopupView" id="dfU-qj-Vvz" customClass="AddEditItemPopupView" customModule="MokaPos" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uYS-O6-Mbh">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -149,10 +149,16 @@
                                         <items>
                                             <barButtonItem systemItem="cancel" id="udY-60-mc3">
                                                 <color key="tintColor" red="0.93615686890000005" green="0.2129003126" blue="0.093908288689999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <connections>
+                                                    <action selector="cancelButtonTapped:" destination="dfU-qj-Vvz" id="Utz-Fe-834"/>
+                                                </connections>
                                             </barButtonItem>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="gq2-22-OCi"/>
                                             <barButtonItem systemItem="save" id="bIP-lK-W3z">
                                                 <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.61568627450000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <connections>
+                                                    <action selector="saveButtonTapped:" destination="dfU-qj-Vvz" id="XtD-E7-UEk"/>
+                                                </connections>
                                             </barButtonItem>
                                         </items>
                                     </toolbar>
@@ -180,8 +186,11 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="2G1-rr-0YI">
+                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" wraps="YES" value="1" maximumValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="2G1-rr-0YI">
                                         <rect key="frame" x="131" y="138.5" width="94" height="29"/>
+                                        <connections>
+                                            <action selector="stepperValueChanged:" destination="dfU-qj-Vvz" eventType="valueChanged" id="JlX-kK-B8n"/>
+                                        </connections>
                                     </stepper>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Price: $2000.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1AS-8V-XUf">
                                         <rect key="frame" x="456" y="141" width="188" height="24"/>
@@ -196,22 +205,46 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uRT-Pf-hWw">
-                                        <rect key="frame" x="0.0" y="226.5" width="659" height="135.5"/>
+                                        <rect key="frame" x="0.0" y="219.5" width="659" height="142.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="J6y-NH-JJ8">
-                                            <size key="itemSize" width="50" height="50"/>
+                                            <size key="itemSize" width="339" height="62"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DiscountCollectionViewCell" id="sM8-ZZ-Uh4">
-                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DiscountCollectionViewCell" id="sM8-ZZ-Uh4" customClass="DiscountCollectionViewCell" customModule="MokaPos" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="339" height="62"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="339" height="62"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A (10%)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPp-PR-Zgz">
+                                                            <rect key="frame" x="15" y="20.5" width="60" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sq8-LI-Hds">
+                                                            <rect key="frame" x="275" y="15.5" width="51" height="31"/>
+                                                            <connections>
+                                                                <action selector="switchValueChanged:" destination="sM8-ZZ-Uh4" eventType="valueChanged" id="r1W-dx-QmW"/>
+                                                            </connections>
+                                                        </switch>
+                                                    </subviews>
                                                 </view>
+                                                <constraints>
+                                                    <constraint firstItem="bPp-PR-Zgz" firstAttribute="centerY" secondItem="sM8-ZZ-Uh4" secondAttribute="centerY" id="FOW-Rh-0IC"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Sq8-LI-Hds" secondAttribute="trailing" constant="15" id="Lxu-yZ-oAy"/>
+                                                    <constraint firstItem="Sq8-LI-Hds" firstAttribute="centerY" secondItem="sM8-ZZ-Uh4" secondAttribute="centerY" id="Yms-8X-97P"/>
+                                                    <constraint firstItem="bPp-PR-Zgz" firstAttribute="leading" secondItem="sM8-ZZ-Uh4" secondAttribute="leading" constant="15" id="aa5-b4-1KI"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="switchApply" destination="Sq8-LI-Hds" id="zhc-N3-mBs"/>
+                                                    <outlet property="titleLabel" destination="bPp-PR-Zgz" id="wvL-4q-cn7"/>
+                                                </connections>
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
@@ -228,7 +261,7 @@
                                     <constraint firstAttribute="trailing" secondItem="uRT-Pf-hWw" secondAttribute="trailing" id="M0a-IZ-WwG"/>
                                     <constraint firstItem="6d7-aW-fbC" firstAttribute="leading" secondItem="7tv-po-NSg" secondAttribute="leading" constant="15" id="SIy-D6-d3Y"/>
                                     <constraint firstItem="nqG-bx-QdO" firstAttribute="leading" secondItem="2m3-4i-zXJ" secondAttribute="trailing" constant="10" id="SrK-DW-xum"/>
-                                    <constraint firstItem="uRT-Pf-hWw" firstAttribute="top" secondItem="X5j-hJ-Rxe" secondAttribute="bottom" constant="15" id="VBe-97-q8H"/>
+                                    <constraint firstItem="uRT-Pf-hWw" firstAttribute="top" secondItem="X5j-hJ-Rxe" secondAttribute="bottom" constant="8" id="VBe-97-q8H"/>
                                     <constraint firstItem="2m3-4i-zXJ" firstAttribute="top" secondItem="B0Y-W9-3TQ" secondAttribute="bottom" constant="25" id="XNx-QB-Ap3"/>
                                     <constraint firstAttribute="bottom" secondItem="uRT-Pf-hWw" secondAttribute="bottom" id="cfl-0R-ID8"/>
                                     <constraint firstItem="2G1-rr-0YI" firstAttribute="centerY" secondItem="nqG-bx-QdO" secondAttribute="centerY" id="eW2-s2-2Rd"/>
@@ -252,6 +285,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="AoM-89-DQE"/>
                     </view>
+                    <connections>
+                        <outlet property="containerView" destination="7tv-po-NSg" id="Enh-b5-d02"/>
+                        <outlet property="discountCollectionView" destination="uRT-Pf-hWw" id="YE5-zj-gfP"/>
+                        <outlet property="priceLabel" destination="B0Y-W9-3TQ" id="0Am-4R-tDz"/>
+                        <outlet property="productNameLabel" destination="6d7-aW-fbC" id="Jx3-PL-Od1"/>
+                        <outlet property="quantityLabel" destination="nqG-bx-QdO" id="qjm-x2-EK6"/>
+                        <outlet property="totalPriceLabel" destination="1AS-8V-XUf" id="LZo-Vx-WCn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="joM-cI-LJ5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
