@@ -78,9 +78,11 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let selected = self.cartItems![indexPath.row]
-        self.delegate?.isUpdatingCartItem = true
-        self.delegate?.didSelectItemWith(productId: Int(selected.productId), quantity: Int(selected.quantity), discountId: Int(selected.discountId))
+        if indexPath.row < (self.cartItems?.count)! - 2 { //To avoid when subtotal and discount is tapped
+            let selected = self.cartItems![indexPath.row]
+            self.delegate?.isUpdatingCartItem = true
+            self.delegate?.didSelectItemWith(productId: Int(selected.productId), quantity: Int(selected.quantity), discountId: Int(selected.discountId))
+        }
     }
 }
 
@@ -88,10 +90,10 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
 extension CartViewController: AddEditPopupDelegate {
     func itemUpdatedWith(productId: Int, quantity: Int, discountId: Int, updatedDiscountId: Int) {
         if (self.delegate?.isUpdatingCartItem)! {
-            self.viewModal?.updateCartItemWith(productId: productId, quantity: quantity, discountId: discountId, updatedDiscountId: updatedDiscountId)
+            self.viewModal?.updateToCartWith(productId: productId, quantity: quantity, discountId: discountId, updatedDiscountId: updatedDiscountId)
         }
         else{
-            self.viewModal?.updateCartItemWith(productId: productId, quantity: quantity, discountId: updatedDiscountId, updatedDiscountId: updatedDiscountId)
+            self.viewModal?.addToCartWith(productId: productId, quantity: quantity, discountId: updatedDiscountId, updatedDiscountId: updatedDiscountId)
         }
     }
 }

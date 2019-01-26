@@ -31,6 +31,11 @@ class DiscountCollectionViewCell: UICollectionViewCell {
     
     
     @IBAction func switchValueChanged(_ sender: UISwitch) {
-        self.delegate?.switchValueDidChangeAt(index: sender.tag)
+        if sender.isOn {
+            self.delegate?.switchValueDidChangeAt(index: sender.tag)
+        }
+        else{
+            self.delegate?.switchValueDidChangeAt(index: 0)
+        }
     }
 }

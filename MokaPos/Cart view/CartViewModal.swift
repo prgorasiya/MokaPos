@@ -19,7 +19,7 @@ class CartViewModal: NSObject {
     
     weak var delegate: CartViewModalDelegate?
     let managedObjectContext = MyDelegate.appDelegate.persistentContainer.viewContext
-    
+    let allDiscounts: [DiscountModel] = UserDefaults.standard.retrieve(object: [DiscountModel].self, fromKey: StaticKeys.allDiscounts)!
     
     init(delegate: CartViewModalDelegate){
         self.delegate = delegate
@@ -68,7 +68,17 @@ class CartViewModal: NSObject {
     }
     
     
-    func updateCartItemWith(productId: Int, quantity: Int, discountId: Int, updatedDiscountId: Int) {
+    func addToCartWith(productId: Int, quantity: Int, discountId: Int, updatedDiscountId: Int) {
+        self.updateCartItemWith(productId: productId, quantity: quantity, discountId: discountId, updatedDiscountId: updatedDiscountId, isUpdate: false)
+    }
+
+    
+    func updateToCartWith(productId: Int, quantity: Int, discountId: Int, updatedDiscountId: Int) {
+        self.updateCartItemWith(productId: productId, quantity: quantity, discountId: discountId, updatedDiscountId: updatedDiscountId, isUpdate: true)
+    }
+    
+    
+    func updateCartItemWith(productId: Int, quantity: Int, discountId: Int, updatedDiscountId: Int, isUpdate: Bool) {
         
         //Creating fetch request from productId and discountId
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Cart")
@@ -81,16 +91,23 @@ class CartViewModal: NSObject {
             return
         }
         
-        let allDiscounts: [DiscountModel] = UserDefaults.standard.retrieve(object: [DiscountModel].self, fromKey: StaticKeys.allDiscounts)!
-        
         // To fetch core data entity object from productId and current discountId and update its values
         if let items = Cart.fetchFromManagedObjectContext(moc: managedObjectContext, request: fetchRequest) {
             let itemToUpdate = items[0]
-            itemToUpdate.quantity = Int64(quantity) + itemToUpdate.quantity
-            if discountId > 0 {
-                let discountToApply = allDiscounts.filter(){ $0.id == discountId }[0]
+            if isUpdate {
+                itemToUpdate.quantity = Int64(quantity)
+            }
+            else{
+                itemToUpdate.quantity = Int64(quantity) + itemToUpdate.quantity
+            }
+            if updatedDiscountId > 0 {
+                let discountToApply = allDiscounts.filter(){ $0.id == updatedDiscountId }[0]
                 itemToUpdate.discountId = Int64(updatedDiscountId)
                 itemToUpdate.discountValue = discountToApply.value
+            }
+            else{
+                itemToUpdate.discountId = 0
+                itemToUpdate.discountValue = 0
             }
             do {
                 try managedObjectContext.save()
@@ -134,6 +151,11 @@ class CartViewModal: NSObject {
                         totalDiscount += (cart.price * Double(cart.quantity)) * (cart.discountValue/100.0) //Calculate total discount among all products
                     }
                 }
+            }
+            
+            if subtotal == 0{
+                self.emptyCart()
+                return
             }
             self.updateSubtotalEntry(amount: subtotal)
             self.updateDiscountEntry(amount: totalDiscount)
