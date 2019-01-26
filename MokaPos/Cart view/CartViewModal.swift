@@ -27,12 +27,7 @@ class CartViewModal: NSObject {
     }
     
     
-    func addNewCartItem(dict: [String: Any]) {
-        Cart.createInManagedObjectContext(moc: managedObjectContext, dict: dict)
-        self.fetchCartItems()
-    }
-    
-    
+    //MARK: Fetch methods
     func fetchCartItems() {
         let results = self.fetchCartItemsFromDatabase()
         if results != nil {
@@ -69,11 +64,19 @@ class CartViewModal: NSObject {
     }
     
     
+    //MARK: Add methods
+    func addNewCartItem(dict: [String: Any]) {
+        Cart.createInManagedObjectContext(moc: managedObjectContext, dict: dict)
+        self.fetchCartItems()
+    }
+    
+    
     func addToCartWith(productId: Int, quantity: Int, discountId: Int, updatedDiscountId: Int) {
         self.updateCartItemWith(productId: productId, quantity: quantity, discountId: discountId, updatedDiscountId: updatedDiscountId, isUpdate: false)
     }
 
     
+    //MARK: Update methods
     func updateToCartWith(productId: Int, quantity: Int, discountId: Int, updatedDiscountId: Int) {
         self.updateCartItemWith(productId: productId, quantity: quantity, discountId: discountId, updatedDiscountId: updatedDiscountId, isUpdate: true)
     }
@@ -133,6 +136,7 @@ class CartViewModal: NSObject {
     }
     
     
+    //MARK: Delete method
     func emptyCart() {
         if Cart.deleteAllFrom(moc: managedObjectContext) {
             self.delegate?.setTotalPriceToCharge(amount: 0)
@@ -141,6 +145,7 @@ class CartViewModal: NSObject {
     }
     
     
+    //MARK: Subtotal and discount calculation methods
     func calculateSubtotalAndDiscount() {
         let results = self.fetchCartItemsFromDatabase()
         if results != nil {

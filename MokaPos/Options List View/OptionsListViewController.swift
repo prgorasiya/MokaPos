@@ -31,7 +31,7 @@ class OptionsListViewController: UIViewController {
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: OptionsListViewController.cellId)
         self.viewModal = OptionsViewModal(delegate: self)
         self.viewModal?.createOptionsModel()
-        self.viewModal?.createDiscountModels()
+        self.viewModal?.saveDiscountModelsLocally()
     }
 }
 

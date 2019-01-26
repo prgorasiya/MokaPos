@@ -51,10 +51,6 @@ extension ItemListViewController: ItemListViewModalDelegate {
         self.items = data
         self.tableView.reloadData()
     }
-    
-    func setEmptyItems() {
-        
-    }
 }
 
 

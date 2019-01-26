@@ -14,7 +14,6 @@ protocol ItemListViewModalDelegate: class {
     func startLoading()
     func finishLoading()
     func setItems(data: [Item])
-    func setEmptyItems()
 }
 
 
@@ -45,12 +44,10 @@ class ItemListViewModal: NSObject {
                 }
                 else{
                     self.delegate?.finishLoading()
-                    self.delegate?.setEmptyItems()
                 }
             }
             else{
                 self.delegate?.finishLoading()
-                self.delegate?.setEmptyItems()
             }
         }
     }
@@ -73,7 +70,6 @@ class ItemListViewModal: NSObject {
         }
         else{
             self.delegate?.finishLoading()
-            self.delegate?.setEmptyItems()
         }
     }
     

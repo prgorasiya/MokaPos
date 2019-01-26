@@ -39,7 +39,7 @@ class OptionsViewModal: NSObject {
     }
     
     
-    func createDiscountModels() {
+    func createDiscountModels() -> [DiscountModel] {
         //
         // A check can be added here to check if value exists for allDiscounts and based on that save OR retrieve data from userdefaults
         // but I haven't added it just to simply change discount value and see it reflect in cart
@@ -54,7 +54,12 @@ class OptionsViewModal: NSObject {
         discounts.append(discountB)
         discounts.append(discountC)
         discounts.append(discountD)
-        
+        return discounts
+    }
+    
+    
+    func saveDiscountModelsLocally() {
+        let discounts = self.createDiscountModels()
         //To save the Discounts to userdefaults
         UserDefaults.standard.save(customObject: discounts, inKey: StaticKeys.allDiscounts)
     }
