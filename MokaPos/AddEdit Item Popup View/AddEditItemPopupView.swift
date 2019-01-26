@@ -161,19 +161,22 @@ extension AddEditItemPopupView: UICollectionViewDelegate, UICollectionViewDataSo
         cell.updateCellWith(data: currentDiscount, applyDiscount: shouldApplyDiscount)
         return cell
     }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if self.updatedDiscountId == indexPath.item + 1 {
+            self.updatedDiscountId = 0
+        }
+        else {
+            self.updatedDiscountId = indexPath.item + 1
+        }
+        self.discountCollectionView.reloadData()
+    }
 }
 
 
 extension AddEditItemPopupView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.size.width/2, height: collectionView.frame.size.height/2)
-    }
-}
-
-
-extension AddEditItemPopupView: DiscountCollectionViewCellDelegate {
-    func switchValueDidChangeAt(index: Int) {
-        self.updatedDiscountId = index
-        self.discountCollectionView.reloadData()
     }
 }

@@ -48,12 +48,9 @@ extension DiscountListViewController: UITableViewDelegate, UITableViewDataSource
         
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: DiscountListViewController.cellId)
         cell.textLabel?.text = currentOption.title
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 18.0)
         cell.detailTextLabel?.text = String(format: "%.2f%%", currentOption.value)
+        cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 22.0)
         return cell
-    }
-    
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
     }
 }

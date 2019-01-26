@@ -69,11 +69,6 @@ extension OptionsListViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
-    
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         self.delegate?.didSelectOptionAt(index: indexPath.row)
