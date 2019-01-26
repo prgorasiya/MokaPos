@@ -57,7 +57,7 @@ class CartViewModal: NSObject {
     
     private func fetchItemWith(productId: Int) -> Item? {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
-        fetchRequest.predicate = NSPredicate(format: "productId == %d", productId) //Fetching item from productId
+        fetchRequest.predicate = NSPredicate(format: "id == %d", productId) //Fetching item from productId
         let results = Item.fetchFromManagedObjectContext(moc: managedObjectContext, request: fetchRequest)
         if results != nil {
             return results![0]
@@ -68,13 +68,30 @@ class CartViewModal: NSObject {
     }
     
     
-    func updateCartItemWith(productId: Int, quantity: Int, discountId: Int) {
+    func updateCartItemWith(productId: Int, quantity: Int, discountId: Int, updatedDiscountId: Int) {
+        
+        //Creating fetch request from productId and discountId
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Cart")
-        fetchRequest.predicate = NSPredicate(format: "productId == %d AND discountId == %d", productId, discountId) // To fetch core data entity object from productId and discountId
+        fetchRequest.predicate = NSPredicate(format: "productId == %d AND discountId == %d", productId, discountId)
+        
+        //Handling base case when quantity is 0 while adding/updating an item
+        if quantity == 0 {
+            Cart.removeFromManagedObjectContext(moc: managedObjectContext, request: fetchRequest)
+            self.calculateSubtotalAndDiscount()
+            return
+        }
+        
+        let allDiscounts: [DiscountModel] = UserDefaults.standard.retrieve(object: [DiscountModel].self, fromKey: StaticKeys.allDiscounts)!
+        
+        // To fetch core data entity object from productId and current discountId and update its values
         if let items = Cart.fetchFromManagedObjectContext(moc: managedObjectContext, request: fetchRequest) {
             let itemToUpdate = items[0]
-            itemToUpdate.quantity = Int64(quantity)
-            itemToUpdate.discountId = Int64(discountId)
+            itemToUpdate.quantity = Int64(quantity) + itemToUpdate.quantity
+            if discountId > 0 {
+                let discountToApply = allDiscounts.filter(){ $0.id == discountId }[0]
+                itemToUpdate.discountId = Int64(updatedDiscountId)
+                itemToUpdate.discountValue = discountToApply.value
+            }
             do {
                 try managedObjectContext.save()
                 self.calculateSubtotalAndDiscount()
@@ -85,11 +102,14 @@ class CartViewModal: NSObject {
         }
         else {
             if let item = self.fetchItemWith(productId: productId) {
-                let allDiscounts: [DiscountModel] = UserDefaults.standard.retrieve(object: [DiscountModel].self, fromKey: StaticKeys.allDiscounts)!
-                let discount = allDiscounts.filter(){ $0.id == discountId }[0]
-                let itemDict: [String: Any] = ["productId": productId, "price": item.price, "quantity": quantity, "discountId": discountId, "discountValue": discount.value, "productName": item.title!]
-                self.calculateSubtotalAndDiscount()
+                var itemDict: [String: Any] = ["productId": Int64(productId), "price": item.price, "quantity": Int64(quantity), "productName": item.title!]
+                if discountId > 0 {
+                    let discountToApply = allDiscounts.filter(){ $0.id == discountId }[0]
+                    itemDict["discountId"] = Int64(discountId)
+                    itemDict["discountValue"] = discountToApply.value
+                }
                 self.addNewCartItem(dict: itemDict)
+                self.calculateSubtotalAndDiscount()
             }
         }
     }
@@ -117,18 +137,23 @@ class CartViewModal: NSObject {
             }
             self.updateSubtotalEntry(amount: subtotal)
             self.updateDiscountEntry(amount: totalDiscount)
+            self.fetchCartItems()
         }
     }
     
     
     private func updateSubtotalEntry(amount: Double) {
-        Cart.removeFromManagedObjectContext(moc: managedObjectContext, productId: -1)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Cart")
+        fetchRequest.predicate = NSPredicate(format: "productId == %d", -1)
+        Cart.removeFromManagedObjectContext(moc: managedObjectContext, request: fetchRequest)
         Cart.createSubtotalEntryIn(moc: managedObjectContext, value: amount)
     }
     
     
     private func updateDiscountEntry(amount: Double) {
-        Cart.removeFromManagedObjectContext(moc: managedObjectContext, productId: -2)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Cart")
+        fetchRequest.predicate = NSPredicate(format: "productId == %d", -2)
+        Cart.removeFromManagedObjectContext(moc: managedObjectContext, request: fetchRequest)
         Cart.createDiscountEntryIn(moc: managedObjectContext, value: amount)
     }
 }

@@ -18,8 +18,12 @@ public class Cart: NSManagedObject {
         newItem.productId = dict["productId"] as! Int64
         newItem.price = dict["price"] as! Double
         newItem.quantity = dict["quantity"] as! Int64
-        newItem.discountId = dict["discountId"] as! Int64
-        newItem.discountValue = dict["discountValue"] as! Double
+        if let discountId = dict["discountId"] {
+            newItem.discountId = discountId as! Int64
+        }
+        if let discountValue = dict["discountValue"] {
+            newItem.discountValue = discountValue as! Double
+        }
         newItem.productName = dict["productName"] as? String
         do{
             try moc.save()
@@ -36,7 +40,7 @@ public class Cart: NSManagedObject {
         newItem.price = value
         newItem.quantity = 0
         newItem.discountId = 0
-        newItem.discountValue = 0.0
+        newItem.discountValue = Double(0)
         newItem.productName = "Subtotal"
         do{
             try moc.save()
@@ -53,7 +57,7 @@ public class Cart: NSManagedObject {
         newItem.price = value
         newItem.quantity = 0
         newItem.discountId = 0
-        newItem.discountValue = 0.0
+        newItem.discountValue = Double(0)
         newItem.productName = "Discount"
         do{
             try moc.save()
@@ -65,10 +69,8 @@ public class Cart: NSManagedObject {
     
     
     //delete object based on productId from Cart
-    class func removeFromManagedObjectContext(moc: NSManagedObjectContext, productId: Int) {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Cart")
-        fetchRequest.predicate = NSPredicate(format: "productId == %d", productId) // To fetch core data entity object from productId
-        if let item = Cart.fetchFromManagedObjectContext(moc: moc, request: fetchRequest) {
+    class func removeFromManagedObjectContext(moc: NSManagedObjectContext, request: NSFetchRequest<NSFetchRequestResult>) {
+        if let item = Cart.fetchFromManagedObjectContext(moc: moc, request: request) {
             let objectToDelete = item[0]
             moc.delete(objectToDelete)
             do {

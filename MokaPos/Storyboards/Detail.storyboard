@@ -207,7 +207,7 @@
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uRT-Pf-hWw">
                                         <rect key="frame" x="0.0" y="219.5" width="659" height="142.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="J6y-NH-JJ8">
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="J6y-NH-JJ8">
                                             <size key="itemSize" width="339" height="62"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -295,6 +295,7 @@
                         <outlet property="priceLabel" destination="B0Y-W9-3TQ" id="0Am-4R-tDz"/>
                         <outlet property="productNameLabel" destination="6d7-aW-fbC" id="Jx3-PL-Od1"/>
                         <outlet property="quantityLabel" destination="nqG-bx-QdO" id="qjm-x2-EK6"/>
+                        <outlet property="quantityStepper" destination="2G1-rr-0YI" id="6iw-HI-ob2"/>
                         <outlet property="totalPriceLabel" destination="1AS-8V-XUf" id="LZo-Vx-WCn"/>
                     </connections>
                 </viewController>

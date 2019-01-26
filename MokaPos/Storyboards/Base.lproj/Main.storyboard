@@ -85,7 +85,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="1024" height="54.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0I-co-S31">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0I-co-S31">
                                                     <rect key="frame" x="15" y="17" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -97,22 +97,23 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6RP-bP-bxj">
-                                                    <rect key="frame" x="541" y="17" width="468" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6RP-bP-bxj">
+                                                    <rect key="frame" x="543" y="17" width="466" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="6RP-bP-bxj" firstAttribute="leading" relation="lessThanOrEqual" secondItem="rsS-PP-x31" secondAttribute="trailing" constant="8" symbolic="YES" id="1ce-vz-PIH"/>
+                                                <constraint firstItem="6RP-bP-bxj" firstAttribute="leading" secondItem="rsS-PP-x31" secondAttribute="trailing" constant="10" id="1ce-vz-PIH"/>
+                                                <constraint firstItem="T0I-co-S31" firstAttribute="top" secondItem="Kne-zj-3nv" secondAttribute="topMargin" constant="6" id="6cm-3D-N8g"/>
                                                 <constraint firstItem="rsS-PP-x31" firstAttribute="centerX" secondItem="Kne-zj-3nv" secondAttribute="centerX" id="NXT-nG-ynw"/>
                                                 <constraint firstItem="6RP-bP-bxj" firstAttribute="centerY" secondItem="Kne-zj-3nv" secondAttribute="centerY" id="T5H-R5-j12"/>
                                                 <constraint firstItem="rsS-PP-x31" firstAttribute="centerY" secondItem="Kne-zj-3nv" secondAttribute="centerY" id="Vmv-9w-vpF"/>
                                                 <constraint firstItem="T0I-co-S31" firstAttribute="leading" secondItem="Kne-zj-3nv" secondAttribute="leading" constant="15" id="icj-bk-CeU"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="T0I-co-S31" secondAttribute="bottom" constant="6" id="mDb-LO-LtK"/>
                                                 <constraint firstAttribute="trailing" secondItem="6RP-bP-bxj" secondAttribute="trailing" constant="15" id="yWh-nI-1Fu"/>
-                                                <constraint firstItem="T0I-co-S31" firstAttribute="centerY" secondItem="Kne-zj-3nv" secondAttribute="centerY" id="zOr-Ww-H3M"/>
-                                                <constraint firstItem="rsS-PP-x31" firstAttribute="leading" relation="lessThanOrEqual" secondItem="T0I-co-S31" secondAttribute="trailing" constant="434" id="zRP-Ek-kJR"/>
+                                                <constraint firstItem="rsS-PP-x31" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="T0I-co-S31" secondAttribute="trailing" constant="15" id="zRP-Ek-kJR"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>

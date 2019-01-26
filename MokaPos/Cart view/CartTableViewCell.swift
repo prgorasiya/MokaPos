@@ -20,12 +20,19 @@ class CartTableViewCell: UITableViewCell {
     func updateCellWith(data: Cart) {
         self.title.text = data.productName
         if data.quantity > 0 {
-            self.quantity.text = String(data.quantity)
+            self.quantity.text = String(format: "x%d", data.quantity)
             self.quantity.isHidden = false
         }
         else{
             self.quantity.isHidden = true
         }
-        self.price.text = String(format: "$%.1f", data.price * Double(data.quantity))
+        
+        //Showing actual product data
+        if data.productId > 0 {
+            self.price.text = String(format: "$%.1f", data.price * Double(data.quantity))
+        }
+        else {
+            self.price.text = String(format: "$%.1f", data.price) //Showing subtotal and discount
+        }
     }
 }
