@@ -16,6 +16,7 @@ class CoreDataTestStack {
     let backgroundContext: NSManagedObjectContextSpy
     let mainContext: NSManagedObjectContextSpy
     
+    //Core data helper method for test target
     init() {
         persistentContainer = NSPersistentContainer(name: "MokaPos")
         let description = persistentContainer.persistentStoreDescriptions.first

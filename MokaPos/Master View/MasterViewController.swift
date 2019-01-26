@@ -19,6 +19,7 @@ class MasterViewController: UIViewController {
     fileprivate lazy var discountView: DiscountListViewController = self.buildFromStoryboard("Detail")
     var isUpdatingCartItem = false
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupStackView()
@@ -41,6 +42,7 @@ class MasterViewController: UIViewController {
     }
     
     
+    //Add child to stack view
     private func addContentController(_ child: UIViewController, to stackView: UIStackView) {
         addChild(child)
         stackView.addArrangedSubview(child.view)
@@ -49,7 +51,6 @@ class MasterViewController: UIViewController {
     
     
     private func removeContentController(_ child: UIViewController, from stackView: UIStackView) {
-        
         child.willMove(toParent: nil)
         stackView.removeArrangedSubview(child.view)
         child.view.removeFromSuperview()
@@ -57,8 +58,8 @@ class MasterViewController: UIViewController {
     }
     
     
+    //Setup stackview and apply constraints
     private func setupStackView() {
-        
         topStackView.axis = axisForSize(view.bounds.size)
         topStackView.alignment = .fill
         topStackView.distribution = .fillProportionally
@@ -76,11 +77,13 @@ class MasterViewController: UIViewController {
     }
     
     
+    //Determine axis for stack view according to orientation of the device
     private func axisForSize(_ size: CGSize) -> NSLayoutConstraint.Axis {
         return size.width > size.height ? .horizontal : .vertical
     }
     
     
+    //return instance of a UIViewController from storyboard
     private func buildFromStoryboard<T>(_ name: String) -> T {
         let storyboard = UIStoryboard(name: name, bundle: nil)
         let identifier = String(describing: T.self)
@@ -102,6 +105,7 @@ class MasterViewController: UIViewController {
     }
     
     
+    //Show AddEdit popup view
     func showAddEditItemPopup(productId: Int, quantity: Int, discountId: Int) {
         let popupView: AddEditItemPopupView = self.buildFromStoryboard("Detail")
         popupView.delegate = cartView
@@ -130,6 +134,7 @@ extension MasterViewController: OptionsListViewDelegate {
 
 
 extension MasterViewController: SelectItemDelegate {
+    //Show AddEdit popup view to add/edit item to cart
     func didSelectItemWith(productId: Int, quantity: Int, discountId: Int) {
         self.showAddEditItemPopup(productId: productId, quantity: quantity, discountId: discountId)
     }

@@ -6,11 +6,18 @@
 //  Copyright © 2019 paras gorasiya. All rights reserved.
 //
 
+
 import Foundation
 import UIKit
 
 struct StaticKeys {
     static let allDiscounts = "AllDiscounts"
+    static let productId = "productId"
+    static let price = "price"
+    static let quantity = "quantity"
+    static let discountId = "discountId"
+    static let discountValue = "discountValue"
+    static let productName = "productName"
 }
 
 
@@ -25,14 +32,9 @@ struct MyAPI {
 }
 
 
-struct DeviceSize {
-    static let deviceWidth = UIScreen.main.bounds.width
-    static let deviceHeight = UIScreen.main.bounds.height
-}
-
-
 let imageCache = NSCache<NSString, UIImage>()
 extension UIImageView {
+    //UIImageView extension method for image caching
     func loadImageUsingCache(withUrl urlString : String?) {
         if urlString == nil || !Network.isConnected() {
             self.image = UIImage().coloredImage(color: .lightGray)
@@ -77,6 +79,7 @@ extension UIImage {
     }
     
     
+    //Creating colored placeholder image
     public func coloredImage(color: UIColor, size: CGSize) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
         color.setFill()
@@ -89,6 +92,8 @@ extension UIImage {
 
 
 extension UserDefaults {
+    //Generic UserDefaults extension method to save data after encoding
+    //Using JSONEncoder here to encode (Can use NSKeyedArchiever as well)
     func save<T:Encodable>(customObject object: T, inKey key: String) {
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(object) {
@@ -97,16 +102,19 @@ extension UserDefaults {
     }
     
     
+    //Generic UserDefaults extension method to retrieve data
     func retrieve<T:Decodable>(object type:T.Type, fromKey key: String) -> T? {
         if let data = self.data(forKey: key) {
             let decoder = JSONDecoder()
             if let object = try? decoder.decode(type, from: data) {
                 return object
-            }else {
+            }
+            else {
                 print("Couldnt decode object")
                 return nil
             }
-        }else {
+        }
+        else {
             print("Couldnt find key")
             return nil
         }

@@ -29,6 +29,7 @@ class ItemListViewModal: NSObject {
     }
     
     
+    //Fetching all items from core data and also calling method to fetch from API
     func fetchAllItems() {
         self.delegate?.startLoading()
         self.processItemsFrom(list: self.fetchItemsFromDatabase())
@@ -36,6 +37,7 @@ class ItemListViewModal: NSObject {
     }
     
     
+    //Fetch items from API and store to core data
     func fetchItemsFromAPI() {
         self.service.getItemsData { (response) in
             if let data = response {
@@ -55,7 +57,7 @@ class ItemListViewModal: NSObject {
     
     func fetchItemsFromDatabase() -> [Item]? {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
-        let results = Item.fetchFromManagedObjectContext(moc: managedObjectContext, request: fetchRequest)
+        let results = Item.fetchFor(request: fetchRequest)
         if results != nil {
             return results
         }
@@ -63,6 +65,7 @@ class ItemListViewModal: NSObject {
     }
     
     
+    //Setting items array to view
     func processItemsFrom(list: [Item]?) {
         if list != nil {
             self.delegate?.finishLoading()
@@ -74,9 +77,10 @@ class ItemListViewModal: NSObject {
     }
     
     
+    //Save Item JSON to core data
     private func saveInCoreDataWith(array: [[String: Any]]) -> Bool {
-        if Item.deleteAllFrom(moc: managedObjectContext) {
-            _ = array.map{Item.createInManagedObjectContext(moc: managedObjectContext, json: $0)}
+        if Item.deleteAll() {
+            _ = array.map{Item.createFrom(json: $0)}
             do {
                 try managedObjectContext.save()
                 return true

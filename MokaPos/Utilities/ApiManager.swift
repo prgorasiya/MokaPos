@@ -23,6 +23,7 @@ class ApiManager: NSObject {
     }
     
     
+    //Get data from URL
     func getData(_ urlString: String, withCompletion completion: @escaping ([[String: Any]]?) -> Void) {
         if Network.isConnected() {
             let url = self.getWebServiceUrl(serviceName: urlString)

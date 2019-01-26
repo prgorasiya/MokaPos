@@ -37,7 +37,6 @@ class OptionsListViewController: UIViewController {
 
 
 extension OptionsListViewController: OptionsViewModalDelegate {
-    
     func setOptions(data: [OptionsModel]) {
         self.posOptions = data
         self.tableView.reloadData()
@@ -58,6 +57,7 @@ extension OptionsListViewController: UITableViewDelegate, UITableViewDataSource 
         cell.textLabel?.text = currentOption.title
         cell.imageView?.image = UIImage(named: currentOption.imageName)
         
+        //Resize cell imageview
         let itemSize = CGSize(width:30.0, height:30.0)
         UIGraphicsBeginImageContextWithOptions(itemSize, false, 0.0)
         let imageRect = CGRect(x:0.0, y:0.0, width:itemSize.width, height:itemSize.height)

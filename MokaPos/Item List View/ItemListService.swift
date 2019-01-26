@@ -10,6 +10,7 @@ import Foundation
 
 class ItemListService {
     
+    //Get items from API
     func getItemsData( _ callBack:@escaping ([[String: Any]]?) -> Void){
         let url = MyAPI.kService_Get_Items
         ApiManager.sharedInstance.getData(url) { (response) in

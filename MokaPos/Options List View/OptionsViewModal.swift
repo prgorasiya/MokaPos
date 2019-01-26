@@ -30,6 +30,7 @@ class OptionsViewModal: NSObject {
     }
     
     
+    //Creating options model array and setting to view
     func createOptionsModel() {
         let option1 = OptionsModel(title: OptionsViewModal.discountTitle, imageName: OptionsViewModal.discountImageName)
         let option2 = OptionsModel(title: OptionsViewModal.listTitle, imageName: OptionsViewModal.listImageName)
@@ -39,11 +40,13 @@ class OptionsViewModal: NSObject {
     }
     
     
+    //Creating discount models
     func createDiscountModels() -> [DiscountModel] {
         //
         // A check can be added here to check if value exists for allDiscounts and based on that save OR retrieve data from userdefaults
         // but I haven't added it just to simply change discount value and see it reflect in cart
         //
+        //discountId = 0 means no discount that's why here it starts from 0 and it is maintained throughout the project
         let discountA = DiscountModel(id: 1, title: "Discount A", value: 10)
         let discountB = DiscountModel(id: 2, title: "Discount B", value: 35.5)
         let discountC = DiscountModel(id: 3, title: "Discount C", value: 50)
@@ -58,6 +61,7 @@ class OptionsViewModal: NSObject {
     }
     
     
+    //Strogin discount models to userdefaults after archieving
     func saveDiscountModelsLocally() {
         let discounts = self.createDiscountModels()
         //To save the Discounts to userdefaults

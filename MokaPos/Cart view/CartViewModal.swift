@@ -41,7 +41,7 @@ class CartViewModal: NSObject {
     
     func fetchCartItemsFromDatabase() -> [Cart]? {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Cart")
-        let results = Cart.fetchFromManagedObjectContext(moc: managedObjectContext, request: fetchRequest)
+        let results = Cart.fetchFor(request: fetchRequest)
         if results != nil {
             return results
         }
@@ -54,7 +54,7 @@ class CartViewModal: NSObject {
     private func fetchItemWith(productId: Int) -> Item? {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
         fetchRequest.predicate = NSPredicate(format: "id == %d", productId) //Fetching item from productId
-        let results = Item.fetchFromManagedObjectContext(moc: managedObjectContext, request: fetchRequest)
+        let results = Item.fetchFor(request: fetchRequest)
         if results != nil {
             return results![0]
         }
@@ -66,7 +66,7 @@ class CartViewModal: NSObject {
     
     //MARK: Add methods
     func addNewCartItem(dict: [String: Any]) {
-        Cart.createInManagedObjectContext(moc: managedObjectContext, dict: dict)
+        Cart.createFrom(dict: dict)
         self.fetchCartItems()
     }
     
@@ -82,6 +82,7 @@ class CartViewModal: NSObject {
     }
     
     
+    //Update cart item if it exists OR add a new one
     func updateCartItemWith(productId: Int, quantity: Int, discountId: Int, updatedDiscountId: Int, isUpdate: Bool) {
         
         //Creating fetch request from productId and discountId
@@ -90,13 +91,13 @@ class CartViewModal: NSObject {
         
         //Handling base case when quantity is 0 while adding/updating an item
         if quantity == 0 {
-            Cart.removeFromManagedObjectContext(moc: managedObjectContext, request: fetchRequest)
+            Cart.removeFor(request: fetchRequest)
             self.calculateSubtotalAndDiscount()
             return
         }
         
         // To fetch core data entity object from productId and current discountId and update its values
-        if let items = Cart.fetchFromManagedObjectContext(moc: managedObjectContext, request: fetchRequest) {
+        if let items = Cart.fetchFor(request: fetchRequest) {
             let itemToUpdate = items[0]
             if isUpdate {
                 itemToUpdate.quantity = Int64(quantity)
@@ -123,11 +124,11 @@ class CartViewModal: NSObject {
         }
         else {
             if let item = self.fetchItemWith(productId: productId) {
-                var itemDict: [String: Any] = ["productId": Int64(productId), "price": item.price, "quantity": Int64(quantity), "productName": item.title!]
+                var itemDict: [String: Any] = [StaticKeys.productId: Int64(productId), StaticKeys.price: item.price, StaticKeys.quantity: Int64(quantity), StaticKeys.productName: item.title!]
                 if discountId > 0 {
                     let discountToApply = allDiscounts.filter(){ $0.id == discountId }[0]
-                    itemDict["discountId"] = Int64(discountId)
-                    itemDict["discountValue"] = discountToApply.value
+                    itemDict[StaticKeys.discountId] = Int64(discountId)
+                    itemDict[StaticKeys.discountValue] = discountToApply.value
                 }
                 self.addNewCartItem(dict: itemDict)
                 self.calculateSubtotalAndDiscount()
@@ -138,7 +139,7 @@ class CartViewModal: NSObject {
     
     //MARK: Delete method
     func emptyCart() {
-        if Cart.deleteAllFrom(moc: managedObjectContext) {
+        if Cart.deleteAll() {
             self.delegate?.setTotalPriceToCharge(amount: 0)
             self.delegate?.setEmptyCart()
         }
@@ -172,18 +173,20 @@ class CartViewModal: NSObject {
     }
     
     
+    //Update subtotal entry into Cart table
     private func updateSubtotalEntry(amount: Double) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Cart")
         fetchRequest.predicate = NSPredicate(format: "productId == %d", -1)
-        Cart.removeFromManagedObjectContext(moc: managedObjectContext, request: fetchRequest)
-        Cart.createSubtotalEntryIn(moc: managedObjectContext, value: amount)
+        Cart.removeFor(request: fetchRequest)
+        Cart.createSubtotalEntryFor(value: amount)
     }
     
     
+    //Update discount entry into Cart table
     private func updateDiscountEntry(amount: Double) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Cart")
         fetchRequest.predicate = NSPredicate(format: "productId == %d", -2)
-        Cart.removeFromManagedObjectContext(moc: managedObjectContext, request: fetchRequest)
-        Cart.createDiscountEntryIn(moc: managedObjectContext, value: amount)
+        Cart.removeFor(request: fetchRequest)
+        Cart.createDiscountEntryFor(value: amount)
     }
 }

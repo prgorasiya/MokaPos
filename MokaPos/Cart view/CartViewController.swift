@@ -98,6 +98,10 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
 
 
 extension CartViewController: AddEditPopupDelegate {
+    //Handling add and update item to cart
+    //In case of update item passing existing discountId from Cart table item to fetch item and update its details
+    //In case of add item passing selected discountId to add a new item to cart
+    //discountId = 0 means no discount
     func itemUpdatedWith(productId: Int, quantity: Int, discountId: Int, updatedDiscountId: Int) {
         if (self.delegate?.isUpdatingCartItem)! {
             self.viewModal?.updateToCartWith(productId: productId, quantity: quantity, discountId: discountId, updatedDiscountId: updatedDiscountId)
