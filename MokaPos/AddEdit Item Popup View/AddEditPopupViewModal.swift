@@ -28,7 +28,7 @@ class AddEditPopupViewModal: NSObject {
     func fetchItemFromDatabase(productId: Int) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
         fetchRequest.predicate = NSPredicate(format: "id == %d", productId)
-        if let items = Item.fetchFromManagedObjectContext(moc: managedObjectContext, request: fetchRequest) {
+        if let items = Item.fetchFor(request: fetchRequest) {
             self.delegate?.setItem(data: items[0])
         }
     }
