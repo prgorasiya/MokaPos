@@ -9,7 +9,8 @@
 import Foundation
 import UIKit
 
-protocol ItemListViewDelegate: class {
+protocol SelectItemDelegate: class {
+    var isUpdatingCartItem: Bool {get set}
     func didSelectItemWith(productId: Int, quantity: Int, discountId: Int)
 }
 
@@ -19,7 +20,7 @@ class ItemListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView?
     
-    weak var delegate: ItemListViewDelegate?
+    weak var delegate: SelectItemDelegate?
     static let cellId: String = "ItemTableViewCell"
     var items: [Item]?
     var viewModal: ItemListViewModal?
@@ -80,6 +81,7 @@ extension ItemListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let selected = self.items![indexPath.row]
+        self.delegate?.isUpdatingCartItem = false
         self.delegate?.didSelectItemWith(productId: Int(selected.id), quantity: 1, discountId: 0)
     }
 }

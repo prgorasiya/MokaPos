@@ -17,7 +17,7 @@ class MasterViewController: UIViewController {
     fileprivate lazy var cartView: CartViewController = self.buildFromStoryboard("Main")
     fileprivate lazy var itemsView: ItemListViewController = self.buildFromStoryboard("Detail")
     fileprivate lazy var discountView: DiscountListViewController = self.buildFromStoryboard("Detail")
-    
+    var isUpdatingCartItem = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +31,7 @@ class MasterViewController: UIViewController {
         
         let navCart = UINavigationController(rootViewController: cartView)
         navCart.view.frame = cartView.view.frame
+        cartView.delegate = self
         addContentController(navCart, to: topStackView)
     }
     
@@ -128,7 +129,7 @@ extension MasterViewController: OptionsListViewDelegate {
 }
 
 
-extension MasterViewController: ItemListViewDelegate {
+extension MasterViewController: SelectItemDelegate {
     func didSelectItemWith(productId: Int, quantity: Int, discountId: Int) {
         self.showAddEditItemPopup(productId: productId, quantity: quantity, discountId: discountId)
     }

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol AddEditPopupDelegate: class {
-    func itemUpdatedWith(productId: Int, quantity: Int, discountId: Int)
+    func itemUpdatedWith(productId: Int, quantity: Int, discountId: Int, updatedDiscountId: Int)
 }
 
 class AddEditItemPopupView: UIViewController {
@@ -20,6 +20,7 @@ class AddEditItemPopupView: UIViewController {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var quantityLabel: UILabel!
+    @IBOutlet weak var quantityStepper: UIStepper!
     @IBOutlet weak var discountCollectionView: UICollectionView!
     
     weak var delegate: AddEditPopupDelegate?
@@ -27,7 +28,7 @@ class AddEditItemPopupView: UIViewController {
     var updatedProductId: Int?
     
     var quantity: Int = 1
-    var updatedQuantity: Int = 0 {
+    var updatedQuantity: Int = 1 {
         didSet {
             self.quantityLabel.text = String(updatedQuantity)
             let total = (item?.price)! * Double(updatedQuantity)
@@ -35,7 +36,7 @@ class AddEditItemPopupView: UIViewController {
         }
     }
     
-    var discountId: Int?
+    var discountId: Int = 0
     var updatedDiscountId: Int?
     
     static let cellId: String = "DiscountCollectionViewCell"
@@ -43,11 +44,6 @@ class AddEditItemPopupView: UIViewController {
     //fetching all discoutns from userdefaults
     var allDiscounts: [DiscountModel] = UserDefaults.standard.retrieve(object: [DiscountModel].self, fromKey: StaticKeys.allDiscounts)!
     var viewModal: AddEditPopupViewModal?
-    
-    let rows = 2
-    let columnsInPage = 2
-    var itemsInPage: Int { return columnsInPage*rows }
-    var columns: Int { return allDiscounts.count%itemsInPage <= columnsInPage ? ((allDiscounts.count/itemsInPage)*columnsInPage)  + (allDiscounts.count%itemsInPage) : ((allDiscounts.count/itemsInPage)+1)*columnsInPage }
 
     
     override func viewDidLoad() {
@@ -67,6 +63,7 @@ class AddEditItemPopupView: UIViewController {
         self.updateName(value: (item?.title)!)
         self.updatePrice(value: (item?.price)!)
         self.updateQuantity(value: quantity)
+        self.updateStepperInitialValue(value: Double(quantity))
         
         let total = (item?.price)! * Double(quantity)
         self.updateTotalPrice(value: total)
@@ -80,6 +77,11 @@ class AddEditItemPopupView: UIViewController {
     
     func updatePrice(value: Double) {
         self.priceLabel.text = String(format: "$%.1f", value)
+    }
+    
+    
+    func updateStepperInitialValue(value: Double) {
+        self.quantityStepper.value = value
     }
     
     
@@ -105,7 +107,8 @@ class AddEditItemPopupView: UIViewController {
     
     
     @IBAction func saveButtonTapped(_ sender: Any) {
-        self.delegate?.itemUpdatedWith(productId: productId, quantity: updatedQuantity, discountId: updatedDiscountId!)
+        self.delegate?.itemUpdatedWith(productId: productId, quantity: updatedQuantity, discountId: discountId, updatedDiscountId: updatedDiscountId!)
+        self.removeAnimated()
     }
     
     
@@ -146,24 +149,25 @@ extension AddEditItemPopupView: AddEditPopupModalDelegate {
 extension AddEditItemPopupView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return columns * rows
+        return allDiscounts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //Calculating current item index based on grouping
-        let t = indexPath.item / itemsInPage
-        let i = indexPath.item / rows - t*columnsInPage
-        let j = indexPath.item % rows
-        let item = (j*columnsInPage+i) + t*itemsInPage
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddEditItemPopupView.cellId, for: indexPath) as! DiscountCollectionViewCell
         cell.delegate = self
         
-        let currentDiscount = allDiscounts[item]
+        let currentDiscount = allDiscounts[indexPath.item]
         let shouldApplyDiscount = discountId == currentDiscount.id
         cell.updateCellWith(data: currentDiscount, applyDiscount: shouldApplyDiscount)
         
         return cell
+    }
+}
+
+
+extension AddEditItemPopupView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.size.width/2, height: collectionView.frame.size.height/2)
     }
 }
 
