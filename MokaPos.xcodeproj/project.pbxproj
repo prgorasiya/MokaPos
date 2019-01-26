@@ -38,6 +38,8 @@
 		6A819B4C21FB0F28004FFEDC /* AddEditItemPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A819B4B21FB0F28004FFEDC /* AddEditItemPopupView.swift */; };
 		6A819B4F21FB2604004FFEDC /* AddEditPopupViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A819B4E21FB2604004FFEDC /* AddEditPopupViewModal.swift */; };
 		6A819B5121FB3BB0004FFEDC /* DiscountCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A819B5021FB3BB0004FFEDC /* DiscountCollectionViewCell.swift */; };
+		6A819B5421FC7272004FFEDC /* CoreDataTestStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A819B5321FC7272004FFEDC /* CoreDataTestStack.swift */; };
+		6A819B5821FC7760004FFEDC /* MokaPos.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6A01540C21F997B5008B8F1A /* MokaPos.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +88,7 @@
 		6A819B4B21FB0F28004FFEDC /* AddEditItemPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditItemPopupView.swift; sourceTree = "<group>"; };
 		6A819B4E21FB2604004FFEDC /* AddEditPopupViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditPopupViewModal.swift; sourceTree = "<group>"; };
 		6A819B5021FB3BB0004FFEDC /* DiscountCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountCollectionViewCell.swift; sourceTree = "<group>"; };
+		6A819B5321FC7272004FFEDC /* CoreDataTestStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataTestStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +151,7 @@
 		6A01541C21F997B7008B8F1A /* MokaPosTests */ = {
 			isa = PBXGroup;
 			children = (
+				6A819B5321FC7272004FFEDC /* CoreDataTestStack.swift */,
 				6A01541D21F997B7008B8F1A /* MokaPosTests.swift */,
 				6A01541F21F997B7008B8F1A /* Info.plist */,
 			);
@@ -386,6 +390,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A819B5821FC7760004FFEDC /* MokaPos.xcdatamodeld in Sources */,
+				6A819B5421FC7272004FFEDC /* CoreDataTestStack.swift in Sources */,
 				6A01541E21F997B7008B8F1A /* MokaPosTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -581,8 +587,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5E6U3TCPM8;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MokaPosTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -591,6 +597,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.paras.MokaPosTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MokaPos.app/MokaPos";
@@ -602,8 +609,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5E6U3TCPM8;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MokaPosTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -612,6 +619,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.paras.MokaPosTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MokaPos.app/MokaPos";
