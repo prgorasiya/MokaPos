@@ -55,7 +55,7 @@ class ItemListViewModal: NSObject {
     
     func fetchItemsFromDatabase() -> [Item]? {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
-        let results = Item.fetchFor(request: fetchRequest)
+        let results = Item.fetchFromManagedObjectContext(moc: managedObjectContext, request: fetchRequest)
         if results != nil {
             return results
         }
@@ -75,8 +75,8 @@ class ItemListViewModal: NSObject {
     
     
     private func saveInCoreDataWith(array: [[String: Any]]) -> Bool {
-        if Item.deleteAll() {
-            _ = array.map{Item.createFrom(json: $0)}
+        if Item.deleteAllFrom(moc: managedObjectContext) {
+            _ = array.map{Item.createInManagedObjectContext(moc: managedObjectContext, json: $0)}
             do {
                 try managedObjectContext.save()
                 return true

@@ -13,9 +13,8 @@ import CoreData
 
 public class Cart: NSManagedObject {
 
-    class func createFrom(dict: [String: Any]) {
-        let backgroundContext = MyDelegate.appDelegate.backgroundContext
-        let newItem = NSEntityDescription.insertNewObject(forEntityName: "Cart", into: backgroundContext) as! Cart
+    class func createInManagedObjectContext(moc: NSManagedObjectContext, dict: [String: Any]) {
+        let newItem = NSEntityDescription.insertNewObject(forEntityName: "Cart", into: moc) as! Cart
         newItem.productId = dict["productId"] as! Int64
         newItem.price = dict["price"] as! Double
         newItem.quantity = dict["quantity"] as! Int64
@@ -27,7 +26,7 @@ public class Cart: NSManagedObject {
         }
         newItem.productName = dict["productName"] as? String
         do{
-            try backgroundContext.save()
+            try moc.save()
         }
         catch {
             print("Could not save. \(error)")
@@ -35,9 +34,8 @@ public class Cart: NSManagedObject {
     }
     
     
-    class func createSubtotalEntryFor(value: Double) {
-        let backgroundContext = MyDelegate.appDelegate.backgroundContext
-        let newItem = NSEntityDescription.insertNewObject(forEntityName: "Cart", into: backgroundContext) as! Cart
+    class func createSubtotalEntryIn(moc: NSManagedObjectContext, value: Double) {
+        let newItem = NSEntityDescription.insertNewObject(forEntityName: "Cart", into: moc) as! Cart
         newItem.productId = -1
         newItem.price = value
         newItem.quantity = 0
@@ -45,7 +43,7 @@ public class Cart: NSManagedObject {
         newItem.discountValue = Double(0)
         newItem.productName = "Subtotal"
         do{
-            try backgroundContext.save()
+            try moc.save()
         }
         catch {
             print("Could not save. \(error)")
@@ -53,9 +51,8 @@ public class Cart: NSManagedObject {
     }
     
     
-    class func createDiscountEntryFor(value: Double) {
-        let backgroundContext = MyDelegate.appDelegate.backgroundContext
-        let newItem = NSEntityDescription.insertNewObject(forEntityName: "Cart", into: backgroundContext) as! Cart
+    class func createDiscountEntryIn(moc: NSManagedObjectContext, value: Double) {
+        let newItem = NSEntityDescription.insertNewObject(forEntityName: "Cart", into: moc) as! Cart
         newItem.productId = -2
         newItem.price = value
         newItem.quantity = 0
@@ -63,7 +60,7 @@ public class Cart: NSManagedObject {
         newItem.discountValue = Double(0)
         newItem.productName = "Discount"
         do{
-            try backgroundContext.save()
+            try moc.save()
         }
         catch {
             print("Could not save. \(error)")
@@ -72,13 +69,12 @@ public class Cart: NSManagedObject {
     
     
     //delete object based on productId from Cart
-    class func removeFor(request: NSFetchRequest<NSFetchRequestResult>) {
-        let mainContext = MyDelegate.appDelegate.persistentContainer.viewContext
-        if let item = Cart.fetchFor(request: request) {
+    class func removeFromManagedObjectContext(moc: NSManagedObjectContext, request: NSFetchRequest<NSFetchRequestResult>) {
+        if let item = Cart.fetchFromManagedObjectContext(moc: moc, request: request) {
             let objectToDelete = item[0]
-            mainContext.delete(objectToDelete)
+            moc.delete(objectToDelete)
             do {
-                try mainContext.save()
+                try moc.save()
             }
             catch{
                 print("Error deleting: \(error)")
@@ -88,16 +84,14 @@ public class Cart: NSManagedObject {
     
     
     //delete all objects from Cart entity
-    class func deleteAll() -> Bool{
-        let backgroundContext = MyDelegate.appDelegate.backgroundContext
+    class func deleteAllFrom(moc: NSManagedObjectContext) -> Bool{
         let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Cart")
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
         do {
-            try backgroundContext.execute(deleteRequest)
-            try backgroundContext.save()
+            try moc.execute(deleteRequest)
+            try moc.save()
             return true
-        }
-        catch {
+        } catch {
             print ("There is an error in deleting records")
             return false
         }
@@ -105,10 +99,9 @@ public class Cart: NSManagedObject {
     
     
     // fetch and return item array if any with/without predicate
-    class func fetchFor(request: NSFetchRequest<NSFetchRequestResult>) -> [Cart]? {
-        let mainContext = MyDelegate.appDelegate.persistentContainer.viewContext
+    class func fetchFromManagedObjectContext(moc: NSManagedObjectContext, request: NSFetchRequest<NSFetchRequestResult>) -> [Cart]? {
         do {
-            if let results = try mainContext.fetch(request) as? [Cart] {
+            if let results = try moc.fetch(request) as? [Cart] {
                 return results.count == 0 ? nil : results
             }
         }

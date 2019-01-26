@@ -1,9 +1,9 @@
 //
-//  CoreDataHelpers.swift
-//  TestingWithCoreData-ExampleTests
+//  AppDelegate.swift
+//  MokaPos
 //
-//  Created by William Boles on 10/03/2018.
-//  Copyright © 2018 William Boles. All rights reserved.
+//  Created by paras gorasiya on 24/1/19.
+//  Copyright © 2019 paras gorasiya. All rights reserved.
 //
 
 import XCTest
@@ -37,24 +37,19 @@ class CoreDataTestStack {
     }
 }
 
+
 class NSManagedObjectContextSpy: NSManagedObjectContext {
     var expectation: XCTestExpectation?
-    
     var saveWasCalled = false
-    
-    // MARK: - Perform
     
     override func performAndWait(_ block: () -> Void) {
         super.performAndWait(block)
-        
         expectation?.fulfill()
     }
     
-    // MARK: - Save
     
     override func save() throws {
         try super.save()
-        
         saveWasCalled = true
     }
 }
