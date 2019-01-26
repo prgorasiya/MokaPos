@@ -24,7 +24,6 @@ class MasterViewController: UIViewController {
         setupStackView()
         
         optionsView.delegate = self
-        
         let nav = UINavigationController(rootViewController: optionsView)
         nav.view.frame = optionsView.view.frame
         addContentController(nav, to: topStackView)
@@ -34,6 +33,7 @@ class MasterViewController: UIViewController {
         cartView.delegate = self
         addContentController(navCart, to: topStackView)
     }
+    
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -61,7 +61,7 @@ class MasterViewController: UIViewController {
         
         topStackView.axis = axisForSize(view.bounds.size)
         topStackView.alignment = .fill
-        topStackView.distribution = .fillEqually
+        topStackView.distribution = .fillProportionally
         topStackView.spacing = 0.0
         
         topStackView.translatesAutoresizingMaskIntoConstraints = false

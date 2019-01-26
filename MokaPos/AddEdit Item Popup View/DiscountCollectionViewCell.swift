@@ -14,7 +14,7 @@ class DiscountCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var switchApply: UISwitch!
-        
+    
     
     func updateCellWith(data: DiscountModel, applyDiscount: Bool) {
         let name = data.title.replacingOccurrences(of: "Discount ", with: "")

@@ -154,7 +154,6 @@ extension AddEditItemPopupView: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddEditItemPopupView.cellId, for: indexPath) as! DiscountCollectionViewCell
-        cell.delegate = self
         
         let currentDiscount = allDiscounts[indexPath.item]
         let shouldApplyDiscount = updatedDiscountId == currentDiscount.id
