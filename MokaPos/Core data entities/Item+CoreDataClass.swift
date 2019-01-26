@@ -28,6 +28,21 @@ public class Item: NSManagedObject {
     }
     
     
+    //delete all objects from Cart entity
+    class func deleteAllFrom(moc: NSManagedObjectContext) -> Bool {
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+        do {
+            try moc.execute(deleteRequest)
+            try moc.save()
+            return true
+        } catch {
+            print ("There is an error in deleting records")
+            return false
+        }
+    }
+    
+    
     // fetch and return item array if any with/without predicate
     class func fetchFromManagedObjectContext(moc: NSManagedObjectContext, request: NSFetchRequest<NSFetchRequestResult>) -> [Item]? {
         do {

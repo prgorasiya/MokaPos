@@ -53,6 +53,7 @@ class ApiManager: NSObject {
         else{
             DispatchQueue.main.async {
                 let alert = UIAlertController(title: nil, message: "No Internet!", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
                 MyDelegate.appDelegate.window?.rootViewController?.present(alert, animated: true, completion: nil)
             }
             completion(nil)

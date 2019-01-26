@@ -11,6 +11,7 @@ import CoreData
 
 protocol CartViewModalDelegate: class {
     func setCartItems(data: [Cart])
+    func setTotalPriceToCharge(amount: Double)
     func setEmptyCart()
 }
 
@@ -134,6 +135,7 @@ class CartViewModal: NSObject {
     
     func emptyCart() {
         if Cart.deleteAllFrom(moc: managedObjectContext) {
+            self.delegate?.setTotalPriceToCharge(amount: 0)
             self.delegate?.setEmptyCart()
         }
     }
@@ -157,6 +159,7 @@ class CartViewModal: NSObject {
                 self.emptyCart()
                 return
             }
+            self.delegate?.setTotalPriceToCharge(amount: subtotal - totalDiscount)
             self.updateSubtotalEntry(amount: subtotal)
             self.updateDiscountEntry(amount: totalDiscount)
             self.fetchCartItems()

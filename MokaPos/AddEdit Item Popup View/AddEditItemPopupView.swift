@@ -157,9 +157,8 @@ extension AddEditItemPopupView: UICollectionViewDelegate, UICollectionViewDataSo
         cell.delegate = self
         
         let currentDiscount = allDiscounts[indexPath.item]
-        let shouldApplyDiscount = discountId == currentDiscount.id
+        let shouldApplyDiscount = updatedDiscountId == currentDiscount.id
         cell.updateCellWith(data: currentDiscount, applyDiscount: shouldApplyDiscount)
-        
         return cell
     }
 }
@@ -175,5 +174,6 @@ extension AddEditItemPopupView: UICollectionViewDelegateFlowLayout {
 extension AddEditItemPopupView: DiscountCollectionViewCellDelegate {
     func switchValueDidChangeAt(index: Int) {
         self.updatedDiscountId = index
+        self.discountCollectionView.reloadData()
     }
 }

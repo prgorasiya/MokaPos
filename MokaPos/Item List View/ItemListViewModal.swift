@@ -79,13 +79,16 @@ class ItemListViewModal: NSObject {
     
     
     private func saveInCoreDataWith(array: [[String: Any]]) -> Bool {
-        _ = array.map{Item.createInManagedObjectContext(moc: managedObjectContext, json: $0)}
-        do {
-            try managedObjectContext.save()
-            return true
-        } catch let error {
-            print(error)
-            return false
+        if Item.deleteAllFrom(moc: managedObjectContext) {
+            _ = array.map{Item.createInManagedObjectContext(moc: managedObjectContext, json: $0)}
+            do {
+                try managedObjectContext.save()
+                return true
+            } catch let error {
+                print(error)
+                return false
+            }
         }
+        return false
     }
 }

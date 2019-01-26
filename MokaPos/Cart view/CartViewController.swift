@@ -40,6 +40,16 @@ class CartViewController: UIViewController {
 
 
 extension CartViewController: CartViewModalDelegate {
+    func setTotalPriceToCharge(amount: Double) {
+        if amount == 0 {
+            self.chargeButton.setTitle("Charge", for: .normal)
+        }
+        else{
+            self.chargeButton.setTitle(String(format: "Charge $%.1f", amount), for: .normal)
+        }
+    }
+    
+    
     func setCartItems(data: [Cart]) {
         self.tableView.isHidden = false
         self.emptyCartLabel.isHidden = true

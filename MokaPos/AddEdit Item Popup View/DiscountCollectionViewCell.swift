@@ -22,10 +22,11 @@ class DiscountCollectionViewCell: UICollectionViewCell {
     
     weak var delegate: DiscountCollectionViewCellDelegate?
     
+    
     func updateCellWith(data: DiscountModel, applyDiscount: Bool) {
         let name = data.title.replacingOccurrences(of: "Discount ", with: "")
         self.titleLabel.text = String(format: "%@ (%.2f%%)", name, data.value)
-        self.switchApply.setOn(applyDiscount, animated: false)
+        self.switchApply.isOn = applyDiscount
         self.switchApply.tag = data.id
     }
     
